@@ -2,9 +2,9 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import ingredientsStyles from './ingredient.module.css';
 
 
-function Ingredient(props) {
+function IngredientCard(props) {
 
-   const handleImageClick = () => { props.onClick(props) }
+   const handleImageClick = () => { props.onClick(props) };
 
    return (
       <button>
@@ -18,4 +18,4 @@ function Ingredient(props) {
    )
 }
 
-export default Ingredient;
+export default IngredientCard;

@@ -1,9 +1,9 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { createPortal } from 'react-dom';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 
 function Modal(props) {
-   const { open, onClose } = props;
+   const { onClose } = props;
 
    const element = useMemo(() => document.getElementById("modal"), []);
    return createPortal(
