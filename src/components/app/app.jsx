@@ -6,10 +6,11 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 
 function App() {
-
   const [selectIngredient, setSelectIngredient] = useState(null);
-  const handleCloseIngredientsModal = () => {
-    setSelectIngredient(null);
+  const handleCloseIngredientsModal = (e) => {
+    if (e.target === document.getElementById('modalOverlay')) {
+      setSelectIngredient(null);
+    }
   }
 
   return (

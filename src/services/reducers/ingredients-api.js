@@ -1,13 +1,15 @@
 import {
    GET_INGREDIENTS_FAILED,
    GET_INGREDIENTS_REQUEST,
-   GET_INGREDIENTS_SUCCESS
-} from '../actions/actions';
+   GET_INGREDIENTS_SUCCESS,
+} from '../actions/ingredients-api';
 
 const initialState = {
    ingredients: [],
    ingredientsRequest: false,
    ingredientsFailed: false,
+
+   burgerIngredientsList: [],
 };
 
 export const ingredientsReducer = (state = initialState, action) => {

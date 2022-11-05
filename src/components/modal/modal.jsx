@@ -1,17 +1,20 @@
-import { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
 import { createPortal } from 'react-dom';
 import ingredientDetailsStyles from './ingredient-details.module.css';
+import ModalOverlay from '../modal-overlay/modal-overlay';
 
-function Modal(props) {
-   const { onClose } = props;
-
+function Modal({ onClose, children }) {
    const element = useMemo(() => document.getElementById("modal"), []);
+
    return createPortal(
-      <div className={ingredientDetailsStyles.modalBackground} onClick={onClose}>
-         <div className={ingredientDetailsStyles.modalCard}>
-            {props.children}
-         </div>
-      </div>, element);
+      <>
+         <ModalOverlay onClose={onClose}>
+            <div className={ingredientDetailsStyles.modalCard}>
+               {children}
+            </div>
+         </ModalOverlay>
+      </>
+      , element);
 
 }
 
