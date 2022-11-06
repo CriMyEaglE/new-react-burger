@@ -5,7 +5,6 @@ function IngredientDetails(props) {
       <div>
          <div>
             <h3>Детали игредиента</h3>
-            <CloseIcon onClick={props.onClick} />
          </div>
          <img src={props.image} />
          <table>

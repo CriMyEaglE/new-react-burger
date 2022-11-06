@@ -1,10 +1,10 @@
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom';
 import ingredientDetailsStyles from './ingredient-details.module.css';
 
 function ModalOverlay({ onClose, children }) {
    const element = useMemo(() => document.getElementById("modal"), []);
-
    const closeModalByEsc = ((e) => {
       if (e.key === 'Escape') {
          onClose()
@@ -28,6 +28,7 @@ function ModalOverlay({ onClose, children }) {
    return createPortal(
       <div className={ingredientDetailsStyles.modalBackground} id={'modalOverlay'}>
          <div className={ingredientDetailsStyles.modalCard}>
+            <CloseIcon onClick={onClose} />
             {children}
          </div>
       </div>, element);

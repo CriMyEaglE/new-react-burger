@@ -1,7 +1,7 @@
 import AppHeader from '../app-header/app-header';
 import appStyles from './app.module.css';
 import BurgerIngredients from '../burger-ingredients/bruger-ingredients';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { getIngredientDetails, removeIngredientDetails } from '../../services/actions/ingredient-details';
@@ -9,16 +9,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import Price from '../price/price';
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import OrderDetails from '../order-details/order-details';
+import { getOrderDetails } from '../../services/actions/order-details';
 
 function App() {
   const [isOpen, setOpen] = useState(false);
-  const [element, setElement] = useState({});
+  const [element, setElement] = useState(null);
   const dispatch = useDispatch();
+  const store = useSelector(state => state.constructorList.constructorList);
+
+  const id = useMemo(() => {
+    return store.map(element => element._id)
+  }, [store])
 
   const openIngredientDetails = (el) => {
     dispatch(getIngredientDetails(el))
     setElement(el);
-    console.log(element)
     setOpen(true);
   }
 
@@ -27,19 +35,39 @@ function App() {
     dispatch(removeIngredientDetails());
   }
 
+  const openOrderDetails = () => {
+    setElement(false)
+    getOrderRequest();
+    setOpen(!isOpen);
+  }
+
+  const getOrderRequest = () => {
+    dispatch(getOrderDetails(id))
+  }
+
   return (
     <div className={appStyles.app}>
       <AppHeader />
       <DndProvider backend={HTML5Backend}>
         <div style={{ display: 'flex' }}>
           <BurgerIngredients onClick={openIngredientDetails} />
-          <BurgerConstructor />
+          <div>
+            <BurgerConstructor />
+            <Price />
+            <Button type='primary' size='medium' onClick={openOrderDetails}>Оформить заказ</Button>
+          </div>
         </div>
       </DndProvider>
       {
         isOpen
           ?
-          <Modal onClose={closeModal} > <IngredientDetails onClick={closeModal}{...element} /></Modal>
+          <Modal onClose={closeModal} >
+            {element
+              ?
+              <IngredientDetails onClick={closeModal}{...element} />
+              :
+              <OrderDetails />}
+          </Modal>
           :
           null
       }
