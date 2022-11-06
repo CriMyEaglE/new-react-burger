@@ -5,14 +5,12 @@ import { Ingredients } from '../ingredients/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients-api';
 
-function BurgerIngredients({ onClick }) {
+function BurgerIngredients(props) {
    const dispatch = useDispatch();
 
    const [current, setCurrent] = React.useState('one')
 
-   const handleSelectIngredient = onClick;
-
-   const { ingredients, ingredientsRequest, burgerIngredientsList } = useSelector(store => store.ingredients);
+   const { ingredients, ingredientsRequest } = useSelector(store => store.ingredients);
 
 
    useEffect(
@@ -38,11 +36,11 @@ function BurgerIngredients({ onClick }) {
          </div>
 
          <h2>Булки</h2>
-         <Ingredients onClick={handleSelectIngredient} type={'bun'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+         <Ingredients onClick={props.onClick} type={'bun'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
          <h2>Соусы</h2>
-         <Ingredients onClick={handleSelectIngredient} type={'sauce'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+         <Ingredients onClick={props.onClick} type={'sauce'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
          <h2>Начинки</h2>
-         <Ingredients onClick={handleSelectIngredient} type={'main'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+         <Ingredients onClick={props.onClick} type={'main'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
 
       </div>
    )

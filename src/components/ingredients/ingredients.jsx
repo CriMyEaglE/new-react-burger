@@ -9,7 +9,7 @@ export const Ingredients = ({ onClick, type, ingredients, ingredientsRequest }) 
             null
          ) : (
             ingredients.filter(item => item.type === type).map((item, index) => {
-               return <IngredientCard onClick={onClick} key={index} {...item} />;
+               return <IngredientCard onClick={onClick} key={index} element={item} />;
             })
          );
       },

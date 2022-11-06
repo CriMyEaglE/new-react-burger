@@ -4,25 +4,36 @@ import BurgerIngredients from '../burger-ingredients/bruger-ingredients';
 import { useState } from 'react';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import { getIngredientDetails, removeIngredientDetails } from '../../services/actions/ingredient-details';
+import { useDispatch } from 'react-redux';
 
 function App() {
-  const [selectIngredient, setSelectIngredient] = useState(null);
-  const handleCloseIngredientsModal = (e) => {
-    if (e.target === document.getElementById('modalOverlay')) {
-      setSelectIngredient(null);
-    }
+  const [isOpen, setOpen] = useState(false);
+  const [element, setElement] = useState({});
+  const dispatch = useDispatch();
+
+  const handleOpenIngredientDetails = (el) => {
+    dispatch(getIngredientDetails(el))
+    setElement(el);
+    setOpen(true);
+  }
+  const closeModal = () => {
+    setOpen(false);
+    dispatch(removeIngredientDetails());
   }
 
   return (
     <div className={appStyles.app}>
       <AppHeader />
-      <BurgerIngredients onClick={setSelectIngredient} />
-      {!!selectIngredient && (
-        <Modal onClose={handleCloseIngredientsModal}>
-          <IngredientDetails {...selectIngredient} />
-        </Modal>
-      )}
-    </div>
+      <BurgerIngredients onClick={handleOpenIngredientDetails} />
+      {
+        isOpen
+          ?
+          <Modal onClose={closeModal} > <IngredientDetails onClick={closeModal}{...element} /></Modal>
+          :
+          null
+      }
+    </div >
   );
 }
 

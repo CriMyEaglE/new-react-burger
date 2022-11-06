@@ -1,11 +1,11 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
-function IngredientDetails(props, onClose) {
+function IngredientDetails(props) {
    return (
       <div>
          <div>
             <h3>Детали игредиента</h3>
-            <CloseIcon onClose={onClose} />
+            <CloseIcon onClick={props.onClick} />
          </div>
          <img src={props.image} />
          <table>
