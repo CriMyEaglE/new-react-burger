@@ -1,14 +1,22 @@
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components"
-import { useDispatch, useSelector } from "react-redux";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientsStyles from './ingredient.module.css';
+import { useDrag } from 'react-dnd';
 
 
 function IngredientCard(props) {
-   const dispatch = useDispatch();
    const item = props.element;
    const func = props.onClick;
+
+   const [{ isDragging }, drag] = useDrag(() => ({
+      type: 'ingredient',
+      item: item,
+      collect: (monitor) => ({
+         isDragging: !!monitor.isDragging(),
+      }),
+   }));
+
    return (
-      <button onClick={(e) => func(item)}>
+      <button onClick={(e) => func(item)} ref={drag} style={{ border: isDragging ? '5px solid pink' : 'none' }}>
          <img src={item.image} />
          <div>
             <p>{item.price}</p>

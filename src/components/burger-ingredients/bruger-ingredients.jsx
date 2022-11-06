@@ -12,7 +12,6 @@ function BurgerIngredients(props) {
 
    const { ingredients, ingredientsRequest } = useSelector(store => store.ingredients);
 
-
    useEffect(
       () => {
          dispatch(getIngredients());

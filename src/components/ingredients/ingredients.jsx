@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import IngredientCard from '../ingredient-card/ingredient-card';
 
 export const Ingredients = ({ onClick, type, ingredients, ingredientsRequest }) => {
