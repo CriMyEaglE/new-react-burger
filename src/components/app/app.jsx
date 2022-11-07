@@ -51,10 +51,12 @@ function App() {
       <DndProvider backend={HTML5Backend}>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '1240px' }}>
           <BurgerIngredients onClick={openIngredientDetails} />
-          <div>
+          <div className='mt-30'>
             <BurgerConstructor />
-            <Price />
-            <Button type='primary' size='medium' onClick={openOrderDetails}>Оформить заказ</Button>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }} className={'mt-10'}>
+              <Price />
+              <Button type='primary' size='medium' onClick={openOrderDetails}>Оформить заказ</Button>
+            </div>
           </div>
         </div>
       </DndProvider>

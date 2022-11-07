@@ -1,6 +1,7 @@
 import React from 'react';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop, useDrag } from "react-dnd";
+import styles from './burger-item.module.css';
 
 function BurgerItem({ element, id, index, deleteElement, moveElement }) {
 
@@ -52,6 +53,7 @@ function BurgerItem({ element, id, index, deleteElement, moveElement }) {
 
    return (
       <div
+         className={styles.container}
          style={{
             opacity: isDragging ? 0.5 : 1
          }}
@@ -60,7 +62,7 @@ function BurgerItem({ element, id, index, deleteElement, moveElement }) {
          data-handler-id={handlerId}
       >
          <div><DragIcon type="primary" /></div>
-         <div>
+         <div className={styles.item}>
             <ConstructorElement
                text={element.name}
                price={element.price}

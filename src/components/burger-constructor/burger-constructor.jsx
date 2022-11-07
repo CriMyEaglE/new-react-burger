@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getConstructorBun, getConstructorItem, moveConstructorItem, deleteConstructorItem } from '../../services/actions/burger-constructor';
 import { v4 as uuidv4 } from 'uuid';
 import BurgerItem from "../burger-item/burger-item";
+import styles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
    const dispatch = useDispatch();
@@ -30,8 +31,8 @@ function BurgerConstructor() {
       dispatch(deleteConstructorItem(item))
    }
    return (
-      <div ref={drop}>
-         <div>
+      <div classname={styles.container} ref={drop}>
+         <div className={styles.bun}>
             {store.map((item) => {
                return item.type === 'bun' &&
                   (<div key={item.id} >
@@ -44,7 +45,7 @@ function BurgerConstructor() {
                   </div>)
             })}
          </div>
-         <div style={{ minHeight: '100px', width: '600px' }}>
+         <div className={styles.scroll}>
             {store.map((item, index) => {
                return item.type !== 'bun' &&
                   (<BurgerItem
@@ -56,7 +57,7 @@ function BurgerConstructor() {
                      moveElement={moveItem} />)
             })}
          </div>
-         <div>
+         <div className={styles.bun}>
             {store.map((item) => {
                return item.type === 'bun' &&
                   (<div key={item.id}>

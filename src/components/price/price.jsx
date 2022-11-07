@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './price.module.css';
 function Price() {
 
    const store = useSelector(store => store.constructorList.constructorList)
@@ -10,8 +11,8 @@ function Price() {
    }, [store])
 
    return (
-      <div>
-         <p>{totalPrice}</p>
+      <div className={`${styles.price} mr-10`}>
+         <p className='text text_type_main-medium'>{totalPrice}</p>
          <CurrencyIcon type="primary" />
       </div>
    )
