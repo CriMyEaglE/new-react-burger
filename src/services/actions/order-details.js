@@ -1,4 +1,6 @@
 import { clearConstructorList } from "./burger-constructor";
+import { BASE_URL } from "../../components/utils/constants";
+import { checkResponse } from "../../components/utils/api";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
@@ -15,14 +17,14 @@ export const getOrderRequest = () => ({
 
 export const getOrderDetails = (id) => {
    return (dispatch) => {
-      fetch('https://norma.nomoreparties.space/api/orders', {
+      fetch(`${BASE_URL}/orders`, {
          method: 'POST',
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify({
             ingredients: id
          })
       })
-         .then(res => res.json())
+         .then(checkResponse)
          .then(({ order: { number } }) => {
             dispatch(getOrderSucces(number))
          })
