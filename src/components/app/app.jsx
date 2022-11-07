@@ -68,7 +68,7 @@ function App() {
               ?
               <IngredientDetails onClick={closeModal}{...element} />
               :
-              <OrderDetails />}
+              <OrderDetails onClick={closeModal} />}
           </Modal>
           :
           null

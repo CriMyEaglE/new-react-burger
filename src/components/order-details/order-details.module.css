@@ -3,6 +3,13 @@
    flex-direction: column;
    justify-content: center;
    text-align: center;
+   position: relative;
+}
+
+.close_icon {
+   position: absolute;
+   top: 60px;
+   right: 40px;
 }
 
 .image {
