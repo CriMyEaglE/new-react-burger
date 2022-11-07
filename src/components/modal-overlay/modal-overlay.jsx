@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import PropTypes from 'prop-types';
 import styles from './modal-overlay.module.css';
 
 function ModalOverlay({ onClose, children }) {
@@ -28,4 +29,10 @@ function ModalOverlay({ onClose, children }) {
       </div>
    );
 }
+
+ModalOverlay.propTypes = {
+   onClose: PropTypes.func.isRequired,
+   children: PropTypes.element.isRequired
+}
+
 export default ModalOverlay;

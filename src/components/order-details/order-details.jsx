@@ -1,7 +1,9 @@
 import { useSelector } from 'react-redux';
 import styles from './order-details.module.css';
 import accept from '../../images/done.png';
-function OrderDetails() {
+import PropTypes from 'prop-types';
+
+function OrderDetails({ onClick }) {
    const id = useSelector(store => store.orderDetails.id);
    return (
       <div className={styles.container}>
@@ -10,6 +12,7 @@ function OrderDetails() {
          <img className={`${styles.image} mt-15`}
             src={accept}
             alt='Заказ подтвержден'
+            onClick={onClick}
          />
          <p className={'mt-15 text text_type_main-small'}>
             Ваш заказ начали готовить
@@ -19,6 +22,10 @@ function OrderDetails() {
          </p>
       </div>
    )
+}
+
+OrderDetails.propTypes = {
+   onClick: PropTypes.func.isRequired
 }
 
 export default OrderDetails;

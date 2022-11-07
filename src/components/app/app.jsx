@@ -69,7 +69,7 @@ function App() {
               <Modal onClose={closeModal} >
                 {element
                   ?
-                  <IngredientDetails onClick={closeModal}{...element} />
+                  <IngredientDetails onClick={closeModal} item={element} />
                   :
                   <OrderDetails onClick={closeModal} />}
               </Modal>

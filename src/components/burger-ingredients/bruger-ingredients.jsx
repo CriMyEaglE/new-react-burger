@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './bruger-ingredients.module.css';
-import { Ingredients } from '../ingredients/ingredients';
+import Ingredients from '../ingredients/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients-api';
+import PropTypes from 'prop-types';
 
-function BurgerIngredients(props) {
+function BurgerIngredients({ onClick }) {
    const dispatch = useDispatch();
 
    const [current, setCurrent] = React.useState('one')
@@ -56,15 +57,15 @@ function BurgerIngredients(props) {
          <div className={styles.scroll}>
             <h2 className={'mt-8'} id='bun'>Булки</h2>
             <div className={styles.bun}>
-               <Ingredients onClick={props.onClick} type={'bun'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+               <Ingredients onClick={onClick} type={'bun'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
             </div>
             <h2 className={'mt-15'} id='sauces'>Соусы</h2>
             <div className={styles.sauce}>
-               <Ingredients onClick={props.onClick} type={'sauce'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+               <Ingredients onClick={onClick} type={'sauce'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
             </div>
             <h2 className={'mt-15'} id='main'>Начинки</h2>
             <div className={styles.main}>
-               <Ingredients onClick={props.onClick} type={'main'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+               <Ingredients onClick={onClick} type={'main'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
             </div>
          </div>
 
@@ -72,4 +73,9 @@ function BurgerIngredients(props) {
    )
 }
 
+BurgerIngredients.propTypes = {
+   onClick: PropTypes.func.isRequired
+}
+
 export default BurgerIngredients;
+
