@@ -31,20 +31,22 @@ function BurgerConstructor() {
       dispatch(deleteConstructorItem(item))
    }
    return (
-      <div classname={styles.container} ref={drop}>
-         <div className={styles.bun}>
-            {store.map((item) => {
-               return item.type === 'bun' &&
-                  (<div key={item.id} >
-                     <ConstructorElement
-                        text={`${item.name} (верх)`}
-                        thumbnail={item.image}
-                        price={item.price}
-                        type="top"
-                        isLocked={true} />
-                  </div>)
-            })}
-         </div>
+      <div ref={drop}>
+         <div className={styles.bun} >
+            {
+               store.map((item) => {
+                  return item.type === 'bun' &&
+                     (<div key={item.id} >
+                        <ConstructorElement
+                           text={`${item.name} (верх)`}
+                           thumbnail={item.image}
+                           price={item.price}
+                           type="top"
+                           isLocked={true} />
+                     </div>)
+               })
+            }
+         </div >
          <div className={styles.scroll}>
             {store.map((item, index) => {
                return item.type !== 'bun' &&
@@ -70,7 +72,7 @@ function BurgerConstructor() {
                   </div>)
             })}
          </div>
-      </div>
+      </div >
 
    )
 }

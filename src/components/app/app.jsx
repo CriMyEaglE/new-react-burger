@@ -55,7 +55,7 @@ function App() {
             <BurgerConstructor />
             <div style={{ display: 'flex', justifyContent: 'flex-end' }} className={'mt-10'}>
               <Price />
-              <Button type='primary' size='medium' onClick={openOrderDetails}>Оформить заказ</Button>
+              <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'}>Оформить заказ</Button>
             </div>
           </div>
         </div>
