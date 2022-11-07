@@ -11,6 +11,9 @@ function Modal({ onClose, children }) {
       <>
          <ModalOverlay onClose={onClose}>
             <div className={styles.modal}>
+               <div onClick={onClose} className={styles.close_icon}>
+                  <CloseIcon />
+               </div>
                {children}
             </div>
          </ModalOverlay>

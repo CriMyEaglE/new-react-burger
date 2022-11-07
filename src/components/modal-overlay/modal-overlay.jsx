@@ -1,9 +1,7 @@
-import { useEffect, useMemo } from 'react'
-import { createPortal } from 'react-dom';
+import { useEffect } from 'react'
 import styles from './modal-overlay.module.css';
 
 function ModalOverlay({ onClose, children }) {
-   const element = useMemo(() => document.getElementById("modal"), []);
    const closeModalByEsc = ((e) => {
       if (e.key === 'Escape') {
          onClose()
@@ -24,11 +22,10 @@ function ModalOverlay({ onClose, children }) {
       }
    }, []);
 
-   return createPortal(
+   return (
       <div className={styles.overlay} id={'modalOverlay'}>
-         <div>
-            {children}
-         </div>
-      </div>, element);
+         {children}
+      </div>
+   );
 }
 export default ModalOverlay;

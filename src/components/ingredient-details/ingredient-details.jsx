@@ -4,10 +4,7 @@ import styles from './ingredient-details.module.css';
 function IngredientDetails(props) {
    return (
       <div>
-         <div className={styles.title_container}>
-            <h3 className={`${styles.title} text text_type_main-large`}>Детали игредиента</h3>
-            <CloseIcon onClick={props.onClick} />
-         </div>
+         <h3 className={`${styles.title} text text_type_main-large`}>Детали игредиента</h3>
          <div className={styles.container}>
             <img className={styles.image} src={props.image} alt={props.name} />
             <h3 className={`${styles.subtitle} text text_type_main-large`}>{props.name}</h3>

@@ -3,17 +3,14 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
-   margin-bottom: 60px;
 }
 
 .title {
-   text-align: start;
-}
-
-.title_container {
-   margin: 40px 40px 0 40px;
    display: flex;
-   justify-content: space-between;
+   align-items: center;
+   text-align: start;
+   margin: 40px 40px 0 40px;
+   height: 60px;
 }
 
 .subtitle {
