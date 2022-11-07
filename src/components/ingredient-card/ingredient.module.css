@@ -2,6 +2,7 @@ button {
    background-color: transparent;
    color: white;
    border: none;
+   position: relative;
 }
 
 .price {
@@ -13,4 +14,10 @@ button {
    display: flex;
    max-width: 240px;
    justify-content: center;
+}
+
+.counter {
+   position: absolute;
+   top: 24px;
+   left: 289px;
 }
