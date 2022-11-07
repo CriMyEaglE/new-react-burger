@@ -3,3 +3,14 @@ button {
    color: white;
    border: none;
 }
+
+.price {
+   display: flex;
+   justify-content: center;
+}
+
+.name {
+   display: flex;
+   max-width: 240px;
+   justify-content: center;
+}

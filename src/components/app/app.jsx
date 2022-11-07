@@ -49,7 +49,7 @@ function App() {
     <div className={appStyles.app}>
       <AppHeader />
       <DndProvider backend={HTML5Backend}>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', width: '1240px' }}>
           <BurgerIngredients onClick={openIngredientDetails} />
           <div>
             <BurgerConstructor />

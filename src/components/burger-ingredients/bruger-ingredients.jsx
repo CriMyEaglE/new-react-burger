@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import burgerIngredientsStyles from './bruger-ingredients.module.css';
+import styles from './bruger-ingredients.module.css';
 import { Ingredients } from '../ingredients/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients-api';
@@ -19,10 +19,10 @@ function BurgerIngredients(props) {
       [dispatch]
    );
    return (
-      <div className={burgerIngredientsStyles.burgerIngredients}>
-         <h1>Соберите бургер</h1>
+      <div>
+         <h1 className={'mt-15 text text_type_main-large'}>Соберите бургер</h1>
 
-         <div style={{ display: 'flex' }}>
+         <div style={{ display: 'flex' }} className={'mt-5'}>
             <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                Булки
             </Tab>
@@ -34,12 +34,20 @@ function BurgerIngredients(props) {
             </Tab>
          </div>
 
-         <h2>Булки</h2>
-         <Ingredients onClick={props.onClick} type={'bun'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
-         <h2>Соусы</h2>
-         <Ingredients onClick={props.onClick} type={'sauce'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
-         <h2>Начинки</h2>
-         <Ingredients onClick={props.onClick} type={'main'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+         <div className={styles.scroll}>
+            <h2 className={'mt-8'}>Булки</h2>
+            <div className={styles.bun}>
+               <Ingredients onClick={props.onClick} type={'bun'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+            </div>
+            <h2 className={'mt-15'}>Соусы</h2>
+            <div className={styles.sauce}>
+               <Ingredients onClick={props.onClick} type={'sauce'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+            </div>
+            <h2 className={'mt-15'}>Начинки</h2>
+            <div className={styles.main}>
+               <Ingredients onClick={props.onClick} type={'main'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />
+            </div>
+         </div>
 
       </div>
    )

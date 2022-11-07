@@ -1,3 +1,9 @@
+@-moz-document url-prefix() {
+   :root {
+      scrollbar-color: #8585AD #2F2F37;
+   }
+}
+
 .app {
    display: flex;
    flex-direction: column;
