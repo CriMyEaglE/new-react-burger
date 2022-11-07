@@ -55,7 +55,7 @@ function BurgerItem({ element, id, index, deleteElement, moveElement }) {
       <div
          className={styles.container}
          style={{
-            opacity: isDragging ? 0.5 : 1
+            opacity: isDragging ? 0.1 : 1
          }}
          ref={ref}
          id={element.id}

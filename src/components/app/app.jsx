@@ -13,6 +13,7 @@ import Price from '../price/price';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderDetails from '../order-details/order-details';
 import { getOrderDetails } from '../../services/actions/order-details';
+import styles from './app.module.css';
 
 function App() {
   const [isOpen, setOpen] = useState(false);
@@ -46,34 +47,38 @@ function App() {
   }
 
   return (
-    <div className={appStyles.app}>
-      <AppHeader />
-      <DndProvider backend={HTML5Backend}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: '1240px' }}>
-          <BurgerIngredients onClick={openIngredientDetails} />
-          <div className='mt-30'>
-            <BurgerConstructor />
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }} className={'mt-10'}>
-              <Price />
-              <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'}>Оформить заказ</Button>
+    <div>
+      <div className={appStyles.app}>
+        <AppHeader />
+        <main>
+          <DndProvider backend={HTML5Backend}>
+            <div className={styles.app_container}>
+              <BurgerIngredients onClick={openIngredientDetails} />
+              <div className='mt-30'>
+                <BurgerConstructor />
+                <div className={`${styles.order_button_container} mt-10`}>
+                  <Price />
+                  <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'}>Оформить заказ</Button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </DndProvider>
-      {
-        isOpen
-          ?
-          <Modal onClose={closeModal} >
-            {element
+          </DndProvider>
+          {
+            isOpen
               ?
-              <IngredientDetails onClick={closeModal}{...element} />
+              <Modal onClose={closeModal} >
+                {element
+                  ?
+                  <IngredientDetails onClick={closeModal}{...element} />
+                  :
+                  <OrderDetails onClick={closeModal} />}
+              </Modal>
               :
-              <OrderDetails onClick={closeModal} />}
-          </Modal>
-          :
-          null
-      }
-    </div >
+              null
+          }
+        </main >
+      </div>
+    </div>
   );
 }
 

@@ -35,7 +35,7 @@ function BurgerIngredients(props) {
       <div>
          <h1 className={'mt-15 text text_type_main-large'}>Соберите бургер</h1>
 
-         <div style={{ display: 'flex' }} className={'mt-5'}>
+         <div className={`${styles.tab_container} mt-5`}>
             <div onClick={scrollToBunSection}>
                <Tab value="one" active={current === 'one'} onClick={setCurrent}>
                   Булки

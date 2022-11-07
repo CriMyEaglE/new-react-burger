@@ -25,7 +25,7 @@ function IngredientCard(props) {
    }));
 
    return (
-      <button onClick={(e) => func(item)} ref={drag} style={{ border: isDragging ? '5px solid pink' : 'none' }}>
+      <button onClick={(e) => func(item)} ref={drag} style={{ border: isDragging ? '2px solid #8585AD' : 'none', borderRadius: isDragging ? '10%' : 'none' }}>
          <div className={styles.counter}>
             {count ?
                <Counter id={item._id} count={count} />
