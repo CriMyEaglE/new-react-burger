@@ -1,7 +1,8 @@
 import React, { useMemo, useEffect } from 'react'
 import { createPortal } from 'react-dom';
-import ingredientDetailsStyles from './ingredient-details.module.css';
+import styles from './modal.module.css';
 import ModalOverlay from '../modal-overlay/modal-overlay';
+import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Modal({ onClose, children }) {
    const element = useMemo(() => document.getElementById("modal"), []);
@@ -9,7 +10,7 @@ function Modal({ onClose, children }) {
    return createPortal(
       <>
          <ModalOverlay onClose={onClose}>
-            <div className={ingredientDetailsStyles.modalCard}>
+            <div className={styles.modal}>
                {children}
             </div>
          </ModalOverlay>

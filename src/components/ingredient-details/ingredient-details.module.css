@@ -1,0 +1,40 @@
+.container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 60px;
+}
+
+.title {
+   text-align: start;
+}
+
+.title_container {
+   margin: 40px 40px 0 40px;
+   display: flex;
+   justify-content: space-between;
+}
+
+.subtitle {
+   text-align: center;
+   margin: 15px 0 38px 0;
+}
+
+.image {
+   width: 480px;
+   height: 240px;
+   align-self: center;
+}
+
+.table {
+   width: 480px;
+}
+
+th {
+   text-align: center;
+}
+
+td {
+   text-align: center;
+}
