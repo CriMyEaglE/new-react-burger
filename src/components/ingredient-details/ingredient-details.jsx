@@ -9,22 +9,34 @@ function IngredientDetails(props) {
             <CloseIcon onClick={props.onClick} />
          </div>
          <div className={styles.container}>
-            <img className={styles.image} src={props.image} />
-            <table className={styles.table}>
-               <caption className={`${styles.subtitle} text text_type_main-medium`}>{props.name}</caption>
-               <tr className="text text_type_main-default text_color_inactive">
-                  <th>Калории, ккал</th>
-                  <th>Белки, г</th>
-                  <th>Жиры, г</th>
-                  <th>Глеводы, г</th>
-               </tr>
-               <tr className="text text_type_digits-default text_color_inactive">
-                  <td>{props.calories}</td>
-                  <td>{props.proteins}</td>
-                  <td>{props.fat}</td>
-                  <td>{props.carbohydrates}</td>
-               </tr>
-            </table>
+            <img className={styles.image} src={props.image} alt={props.name} />
+            <h3 className={`${styles.subtitle} text text_type_main-large`}>{props.name}</h3>
+            <div className={styles.table}>
+               <p className="text text_type_main-small text_color_inactive">
+                  Калории,ккал
+               </p>
+               <p className="text text_type_main-small text_color_inactive">
+                  Белки, г
+               </p>
+               <p className="text text_type_main-small text_color_inactive">
+                  Жиры, г
+               </p>
+               <p className="text text_type_main-small text_color_inactive">
+                  Углеводы, г
+               </p>
+               <p className="text text_type_digits-default text_color_inactive">
+                  {props.calories}
+               </p>
+               <p className="text text_type_digits-default text_color_inactive">
+                  {props.proteins}
+               </p>
+               <p className="text text_type_digits-default text_color_inactive">
+                  {props.fat}
+               </p>
+               <p className="text text_type_digits-default text_color_inactive">
+                  {props.carbohydrates}
+               </p>
+            </div>
          </div>
 
       </div>

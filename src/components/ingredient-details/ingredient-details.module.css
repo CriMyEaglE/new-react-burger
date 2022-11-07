@@ -18,7 +18,7 @@
 
 .subtitle {
    text-align: center;
-   margin: 15px 0 38px 0;
+   margin: 16px 0 38px;
 }
 
 .image {
@@ -28,13 +28,10 @@
 }
 
 .table {
-   width: 480px;
-}
-
-th {
+   width: 520px;
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   column-gap: 20px;
    text-align: center;
-}
-
-td {
-   text-align: center;
+   margin-bottom: 60px;
 }
