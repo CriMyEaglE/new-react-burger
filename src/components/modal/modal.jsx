@@ -9,16 +9,14 @@ function Modal({ onClose, children }) {
    const element = useMemo(() => document.getElementById("modal"), []);
 
    return createPortal(
-      <>
-         <ModalOverlay onClose={onClose}>
-            <div className={styles.modal}>
-               <div onClick={onClose} className={styles.close_icon}>
-                  <CloseIcon />
-               </div>
-               {children}
+      <ModalOverlay onClose={onClose}>
+         <div className={styles.modal}>
+            <div onClick={onClose} className={styles.close_icon}>
+               <CloseIcon />
             </div>
-         </ModalOverlay>
-      </>
+            {children}
+         </div>
+      </ModalOverlay>
       , element);
 
 }

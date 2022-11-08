@@ -9,8 +9,8 @@ function Ingredients({ onClick, type, ingredients, ingredientsRequest }) {
          return ingredientsRequest ? (
             null
          ) : (
-            ingredients.filter(item => item.type === type).map((item, index) => {
-               return <IngredientCard onClick={onClick} key={index} item={item} />;
+            ingredients.filter(item => item.type === type).map((item) => {
+               return <IngredientCard onClick={onClick} key={item._id} item={item} />;
             })
          );
       },
