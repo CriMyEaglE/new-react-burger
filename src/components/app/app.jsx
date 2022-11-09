@@ -54,9 +54,9 @@ function App() {
           <DndProvider backend={HTML5Backend}>
             <div className={styles.app_container}>
               <BurgerIngredients onClick={openIngredientDetails} />
-              <div className='mt-30'>
+              <div className={styles.constructor_container}>
                 <BurgerConstructor />
-                <div className={`${styles.order_button_container} mt-10`}>
+                <div className={styles.order_button_container}>
                   <Price />
                   <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'}>Оформить заказ</Button>
                 </div>
