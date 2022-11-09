@@ -36,7 +36,7 @@ function BurgerConstructor() {
             {
                store.map((item) => {
                   return item.type === 'bun' &&
-                     (<div key={item._id} >
+                     (<div key={item.id} >
                         <ConstructorElement
                            text={`${item.name} (верх)`}
                            thumbnail={item.image}
@@ -51,7 +51,7 @@ function BurgerConstructor() {
             {store.map((item, index) => {
                return item.type !== 'bun' &&
                   (<BurgerItem
-                     key={item._id}
+                     key={item.id}
                      element={item}
                      id={item.id}
                      index={index}
@@ -62,7 +62,7 @@ function BurgerConstructor() {
          <div className={styles.bun}>
             {store.map((item) => {
                return item.type === 'bun' &&
-                  (<div key={item._id}>
+                  (<div key={item.id}>
                      <ConstructorElement
                         text={`${item.name} (низ)`}
                         thumbnail={item.image}

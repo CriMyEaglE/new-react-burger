@@ -32,7 +32,7 @@ function BurgerIngredients({ onClick }) {
    };
 
    const sectionObserver = new IntersectionObserver(cb, {
-      threshold: 0.6
+      threshold: 0.52
    });
 
    sections.forEach((s) => sectionObserver.observe(s));
