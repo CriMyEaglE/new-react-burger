@@ -4,3 +4,8 @@ export const checkResponse = (res) => {
    }
    return Promise.reject(`Ошибка ${res.status}`)
 }
+
+export const request = async (url, options) => {
+   const res = await fetch(url, options)
+   return checkResponse(res)
+}
