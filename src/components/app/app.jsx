@@ -14,6 +14,12 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderDetails from '../order-details/order-details';
 import { getOrderDetails } from '../../services/actions/order-details';
 import styles from './app.module.css';
+import { Route, Switch, useHistory, useLocation, BrowserRouter as Router } from 'react-router-dom';
+import ResetPassword from '../../pages/reset-password';
+import Profile from '../../pages/profile';
+import Login from '../../pages/login';
+import Registration from '../../pages/register';
+import ForgotPassword from '../../pages/forgot-password';
 
 function App() {
   const [isOpen, setOpen] = useState(false);
@@ -47,38 +53,55 @@ function App() {
   }
 
   return (
-    <div>
+    <DndProvider backend={HTML5Backend}>
       <div className={appStyles.app}>
         <AppHeader />
-        <main>
-          <DndProvider backend={HTML5Backend}>
-            <div className={styles.app_container}>
-              <BurgerIngredients onClick={openIngredientDetails} />
-              <div className={styles.constructor_container}>
-                <BurgerConstructor />
-                <div className={styles.order_button_container}>
-                  <Price />
-                  <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'}>Оформить заказ</Button>
+        <Switch>
+          <Route path='/forgot-password' exact={true}>
+            <ForgotPassword />
+          </Route>
+          <Route path='/register' exact={true}>
+            <Registration />
+          </Route>
+          <Route path='/login' exact={true}>
+            <Login />
+          </Route>
+          <Route path='/profile' exact={true}>
+            <Profile />
+          </Route>
+          <Route path='/reset-password' exact={true}>
+            <ResetPassword />
+          </Route>
+          <Route path='/' exact={true}>
+            <main>
+              <div className={styles.app_container}>
+                <BurgerIngredients onClick={openIngredientDetails} />
+                <div className={styles.constructor_container}>
+                  <BurgerConstructor />
+                  <div className={styles.order_button_container}>
+                    <Price />
+                    <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'}>Оформить заказ</Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </DndProvider>
-          {
-            isOpen
-              ?
-              <Modal onClose={closeModal} >
-                {element
-                  ?
-                  <IngredientDetails onClick={closeModal} item={element} />
-                  :
-                  <OrderDetails onClick={closeModal} />}
-              </Modal>
-              :
-              null
-          }
-        </main >
+            </main>
+          </Route>
+        </Switch>
+        {
+          isOpen
+            ?
+            <Modal onClose={closeModal} >
+              {element
+                ?
+                <IngredientDetails onClick={closeModal} item={element} />
+                :
+                <OrderDetails onClick={closeModal} />}
+            </Modal>
+            :
+            null
+        }
       </div>
-    </div>
+    </DndProvider>
   );
 }
 

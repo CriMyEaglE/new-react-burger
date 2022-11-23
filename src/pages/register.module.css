@@ -1,0 +1,30 @@
+.container {
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   margin-top: 180px;
+}
+
+.input {
+   margin-top: 24px;
+}
+
+.button {
+   margin: 24px 0 80px;
+}
+
+.link_container {
+   display: flex;
+}
+
+.link {
+   text-decoration: none;
+   margin-left: 8px;
+   color: #4C4CFF;
+   cursor: pointer;
+   transition: 0.5s;
+}
+
+.link:hover {
+   opacity: 0.6;
+}

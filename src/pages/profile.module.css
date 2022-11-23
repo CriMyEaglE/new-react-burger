@@ -1,0 +1,31 @@
+.horizontal_container {
+   display: flex;
+   margin: 180px 0 0 20px;
+}
+
+.vertical_container {
+   display: flex;
+   flex-direction: column;
+}
+
+.input {
+   margin-bottom: 24px;
+}
+
+.button {
+   margin: 24px 0 80px;
+}
+
+.link {
+   width: 320px;
+   min-height: 64px;
+   margin-right: 60px;
+   cursor: pointer;
+}
+
+.description {
+   margin-top: 80px;
+   width: 320px;
+   min-height: 64px;
+   margin-right: 60px;
+}
