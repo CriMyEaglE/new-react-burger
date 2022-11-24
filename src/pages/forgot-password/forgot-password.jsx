@@ -25,9 +25,9 @@ function ForgotPassword() {
     return (<Redirect to={'/reset-password'} />)
   }
 
-  // if (login) {
-  //   return (<Redirect to={'/profile'} />)
-  // }
+  if (login) {
+    return (<Redirect to={'/profile'} />)
+  }
 
   return (
     <form className={styles.container} onSubmit={restorePassword}>

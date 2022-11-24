@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 function ResetPassword() {
    const login = JSON.parse(sessionStorage.getItem('login'));
    const reseted = useSelector(state => state.resetPassword.success);
+   console.log(login, reseted)
    const [value, setValue] = useState('');
    const inputRef = useRef(null);
    const [input, setInput] = useState({
@@ -23,16 +24,11 @@ function ResetPassword() {
       getResetSuccessApi()
    }
 
-   const onIconClick = () => {
-      setTimeout(() => inputRef.current.focus(), 0)
-      alert('Icon Click Callback')
-   }
-
    if (login) {
       return (<Redirect to={'/profile'} />)
    }
 
-   if (!reseted) {
+   if (reseted) {
       return (<Redirect to={'/forgot-password'} />)
    }
 
@@ -55,7 +51,6 @@ function ResetPassword() {
                name={'name'}
                error={false}
                ref={inputRef}
-               onIconClick={onIconClick}
                errorText={'Ошибка'}
             />
          </div>
