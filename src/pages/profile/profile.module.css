@@ -1,0 +1,52 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 0 auto;
+  max-width: 1048.4px;
+}
+
+.nav {
+  align-self: start;
+  max-width: 320px;
+  margin-top: 121px;
+}
+
+.inputs {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
+  margin-bottom: 32px;
+}
+
+.button {
+  width: 165px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button_container {
+  display: flex;
+  flex-direction: row;
+}
+
+.tab {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  color: #8585AD;
+  text-decoration: none;
+  transition: opacity .3s;
+}
+
+.tab:hover {
+  cursor: pointer;
+  opacity: .5;
+}
+
+.active {
+  color: #F2F2F3;
+}

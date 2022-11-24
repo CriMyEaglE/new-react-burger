@@ -14,24 +14,36 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderDetails from '../order-details/order-details';
 import { getOrderDetails } from '../../services/actions/order-details';
 import styles from './app.module.css';
-import { Route, Switch, useHistory, useLocation, BrowserRouter as Router } from 'react-router-dom';
-import ResetPassword from '../../pages/reset-password';
-import Profile from '../../pages/profile';
-import Login from '../../pages/login';
-import Registration from '../../pages/register';
-import ForgotPassword from '../../pages/forgot-password';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import ForgotPassword from '../../pages/forgot-password/forgot-password';
+import Registration from '../../pages/registration/registration';
+import Login from '../../pages/login/login';
+import Profile from '../../pages/profile/profile';
+import ResetPassword from '../../pages/reset-password/reset-password';
+import Ingredient from '../../pages/ingredient/ingredient';
+import NotFound from '../../pages/not-found/not-found';
+import { ProtectedRoute } from '../utils/protected-route';
 
 function App() {
   const [isOpen, setOpen] = useState(false);
   const [element, setElement] = useState(null);
   const dispatch = useDispatch();
   const store = useSelector(state => state.constructorList.constructorList);
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  const history = useHistory();
+  const { urlId } = useSelector(state => state.ingredientDetails.ingredientDetails);
 
   const id = useMemo(() => {
     return store.map(element => element._id)
   }, [store])
 
   const openIngredientDetails = (el) => {
+    const id = el._id;
+    const url = `/ingredients/:${id}`;
+    window.history.pushState(null, '', url);
+    sessionStorage
+      .setItem('ingredient', JSON.stringify(el));
     dispatch(getIngredientDetails(el))
     setElement(el);
     setOpen(true);
@@ -40,6 +52,7 @@ function App() {
   const closeModal = () => {
     setOpen(false);
     dispatch(removeIngredientDetails());
+    history.replace('/');
   }
 
   const openOrderDetails = () => {
@@ -56,7 +69,10 @@ function App() {
     <DndProvider backend={HTML5Backend}>
       <div className={appStyles.app}>
         <AppHeader />
-        <Switch>
+        <Switch location={background || location}>
+          <Route path={`/ingredients/:${urlId}`}>
+            <Ingredient />
+          </Route>
           <Route path='/forgot-password' exact={true}>
             <ForgotPassword />
           </Route>
@@ -66,9 +82,9 @@ function App() {
           <Route path='/login' exact={true}>
             <Login />
           </Route>
-          <Route path='/profile' exact={true}>
+          <ProtectedRoute path='/profile' exact={true}>
             <Profile />
-          </Route>
+          </ProtectedRoute>
           <Route path='/reset-password' exact={true}>
             <ResetPassword />
           </Route>
@@ -85,6 +101,9 @@ function App() {
                 </div>
               </div>
             </main>
+          </Route>
+          <Route path='*'>
+            <NotFound />
           </Route>
         </Switch>
         {
