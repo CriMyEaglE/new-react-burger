@@ -1,8 +1,6 @@
 import React from 'react';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop, useDrag } from "react-dnd";
-import { ingredientType } from '../utils/prop-types';
-import PropTypes from 'prop-types';
 import styles from './burger-item.module.css';
 
 function BurgerItem({ element, id, index, deleteElement, moveElement }) {
@@ -74,13 +72,5 @@ function BurgerItem({ element, id, index, deleteElement, moveElement }) {
       </div>
    )
 }
-
-BurgerItem.propTypes = {
-   element: ingredientType.isRequired,
-   id: PropTypes.string.isRequired,
-   index: PropTypes.number.isRequired,
-   deleteElement: PropTypes.func.isRequired,
-   moveElement: PropTypes.func.isRequired,
-};
 
 export default BurgerItem;

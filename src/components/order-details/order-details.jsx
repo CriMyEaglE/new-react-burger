@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import styles from './order-details.module.css';
 import accept from '../../images/done.png';
-import PropTypes from 'prop-types';
 
 function OrderDetails({ onClick }) {
    const id = useSelector(store => store.orderDetails.id);
@@ -22,10 +21,6 @@ function OrderDetails({ onClick }) {
          </p>
       </div>
    )
-}
-
-OrderDetails.propTypes = {
-   onClick: PropTypes.func.isRequired
 }
 
 export default OrderDetails;

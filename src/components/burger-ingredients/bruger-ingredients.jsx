@@ -4,7 +4,6 @@ import styles from './bruger-ingredients.module.css';
 import Ingredients from '../ingredients/ingredients';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients-api';
-import PropTypes from 'prop-types';
 
 function BurgerIngredients({ onClick }) {
    const dispatch = useDispatch();
@@ -94,10 +93,6 @@ function BurgerIngredients({ onClick }) {
 
       </div>
    )
-}
-
-BurgerIngredients.propTypes = {
-   onClick: PropTypes.func.isRequired
 }
 
 export default BurgerIngredients;

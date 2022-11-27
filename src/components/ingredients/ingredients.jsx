@@ -1,7 +1,5 @@
 import { useMemo } from 'react';
 import IngredientCard from '../ingredient-card/ingredient-card';
-import { ingredientType } from '../utils/prop-types';
-import PropTypes from 'prop-types';
 
 function Ingredients({ onClick, type, ingredients, ingredientsRequest }) {
    const content = useMemo(
@@ -23,12 +21,5 @@ function Ingredients({ onClick, type, ingredients, ingredientsRequest }) {
       </div>
    )
 };
-
-Ingredients.propTypes = {
-   onClick: PropTypes.func.isRequired,
-   type: PropTypes.string.isRequired,
-   ingredients: PropTypes.arrayOf(ingredientType).isRequired,
-   ingredientsRequest: PropTypes.bool.isRequired
-}
 
 export default Ingredients;

@@ -3,8 +3,6 @@ import styles from './ingredient.module.css';
 import { useDrag } from 'react-dnd';
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
-import { ingredientType } from '../utils/prop-types';
-import PropTypes from 'prop-types';
 
 function IngredientCard({ item, onClick }) {
    const store = useSelector(store => store.constructorList.constructorList);
@@ -38,11 +36,6 @@ function IngredientCard({ item, onClick }) {
          <p className={`${styles.name} text text_type_main-small`}>{item.name}</p>
       </button >
    )
-}
-
-IngredientCard.protoTypes = {
-   item: ingredientType.isRequired,
-   onClick: PropTypes.string.isRequired
 }
 
 export default IngredientCard;
