@@ -1,8 +1,12 @@
-import { useSelector } from 'react-redux';
 import styles from './order-details.module.css';
 import accept from '../../images/done.png';
+import { useSelector } from '../utils/hooks';
+import { FC } from 'react';
 
-function OrderDetails({ onClick }) {
+type TOrderDetailsOnClick = {
+   onClick: () => void
+}
+const OrderDetails: FC<TOrderDetailsOnClick> = ({ onClick }) => {
    const id = useSelector(store => store.orderDetails.id);
    return (
       <div className={styles.container}>

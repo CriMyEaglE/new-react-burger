@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop, useDrag } from "react-dnd";
 import styles from './burger-item.module.css';
+import { TIngredient } from '../utils/type';
 
-function BurgerItem({ element, id, index, deleteElement, moveElement }) {
-   const [{ handlerId }, drop] = useDrop({
+type TBurgerItem = {
+   element: TIngredient,
+   id: string,
+   index: number,
+   deleteElement: (element: TIngredient) => void,
+   moveElement: (dragIndex: number, hoverIndex: number) => void
+}
+
+const BurgerItem: FC<TBurgerItem> = ({ element, id, index, deleteElement, moveElement }) => {
+   const [{ handlerId }, drop] = useDrop<TBurgerItem, TBurgerItem, { handlerId: symbol | string | null }>({
       accept: 'item',
       collect(monitor) {
          return {
@@ -15,15 +24,16 @@ function BurgerItem({ element, id, index, deleteElement, moveElement }) {
          if (!ref.current) {
             return
          }
-         const dragIndex = item.index;
-         const hoverIndex = index
+         const dragIndex: number = item.index;
+         const hoverIndex: number = index
          if (dragIndex === hoverIndex) {
             return
          }
-         const hoverBoundingRect = ref.current?.getBoundingClientRect();
+         const rect: HTMLElement = ref.current
+         const hoverBoundingRect: DOMRect = rect?.getBoundingClientRect();
          const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
          const clientOffset = monitor.getClientOffset()
-         const hoverClientY = clientOffset.y - hoverBoundingRect.top
+         const hoverClientY: number = clientOffset!.y - hoverBoundingRect.top
          if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
             return
          }

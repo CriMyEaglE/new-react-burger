@@ -1,11 +1,10 @@
 import AppHeader from '../app-header/app-header';
 import appStyles from './app.module.css';
 import BurgerIngredients from '../burger-ingredients/bruger-ingredients';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, FC, useCallback } from 'react';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { getIngredientDetails, removeIngredientDetails } from '../../services/actions/ingredient-details';
-import { useDispatch, useSelector } from 'react-redux';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
@@ -23,32 +22,42 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import Ingredient from '../../pages/ingredient/ingredient';
 import NotFound from '../../pages/not-found/not-found';
 import { ProtectedRoute } from '../../pages/protected-route/protected-route';
+import { useDispatch, useSelector } from '../utils/hooks';
+import { TIngredient } from '../utils/type';
 
-function App() {
+type TLocation = ReturnType<typeof useLocation>;
+type TUseLocation = {
+  [key: string]: string | null | TUseLocation | TLocation,
+};
+
+const App: FC = () => {
   const [isOpen, setOpen] = useState(false);
-  const [element, setElement] = useState(null);
+  const [element, setElement] = useState<TIngredient>();
   const dispatch = useDispatch();
   const store = useSelector(state => state.constructorList.constructorList);
-  const location = useLocation();
+  const location = useLocation<TUseLocation>();
   const background = location.state && location.state.background;
   const history = useHistory();
-  const { urlId } = useSelector(state => state.ingredientDetails.ingredientDetails);
+  const { _id } = useSelector(state => state.ingredientDetails.ingredientDetails);
 
   const id = useMemo(() => {
     return store.map(element => element._id)
   }, [store])
 
-  const openIngredientDetails = (el) => {
-    const id = el._id;
-    const url = `/ingredients/:${id}`;
-    window.history.pushState(null, '', url);
-    sessionStorage
-      .setItem('ingredient', JSON.stringify(el));
-    dispatch(getIngredientDetails(el))
-    setElement(el);
-    setOpen(true);
-  }
-
+  const openIngredientDetails = useCallback((element: TIngredient): void => {
+    const { _id } = element;
+    const url = `/ingredients/:${_id}`;
+    history.push({
+      pathname: url,
+      state: {
+        background: location,
+        element: element
+      }
+    })
+    localStorage
+      .setItem('ingredient', JSON.stringify(element));
+    dispatch(getIngredientDetails(element))
+  }, [dispatch, history, location]);
   const closeModal = () => {
     setOpen(false);
     dispatch(removeIngredientDetails());
@@ -56,7 +65,6 @@ function App() {
   }
 
   const openOrderDetails = () => {
-    setElement(false)
     getOrderRequest();
     setOpen(!isOpen);
   }
@@ -69,8 +77,8 @@ function App() {
     <DndProvider backend={HTML5Backend}>
       <div className={appStyles.app}>
         <AppHeader />
-        <Switch location={background || location}>
-          <Route path={`/ingredients/:${urlId}`}>
+        <Switch location={background as TLocation || location}>
+          <Route path={`/ingredients/:${_id}`}>
             <Ingredient />
           </Route>
           <Route path='/forgot-password' exact={true}>
@@ -106,19 +114,16 @@ function App() {
             <NotFound />
           </Route>
         </Switch>
-        {
-          isOpen
-            ?
+        {background &&
+          <Route path={`/ingredients/:${_id}`}>
+            (
             <Modal onClose={closeModal} >
-              {element
-                ?
-                <IngredientDetails onClick={closeModal} item={element} />
-                :
-                <OrderDetails onClick={closeModal} />}
+              <IngredientDetails />
             </Modal>
-            :
-            null
-        }
+            )</Route>}
+        {isOpen && <Modal onClose={closeModal} >
+          <OrderDetails onClick={closeModal} />
+        </Modal>}
       </div>
     </DndProvider>
   );

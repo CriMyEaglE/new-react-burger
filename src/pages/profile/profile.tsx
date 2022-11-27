@@ -1,29 +1,31 @@
 import styles from './profile.module.css';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, FormEventHandler } from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { NavLink } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { logoutUserApi } from '../../services/actions/login';
 import { getUserInfoApi, patchUserInfoApi } from '../../services/actions/profile';
 import { getCookie, setCookie } from '../../components/utils/coockie';
+import { useDispatch, useForm, useSelector } from '../../components/utils/hooks';
 
 function Profile() {
   const dispatch = useDispatch();
   const userName = useSelector(state => state.userProfile.user.name);
   const userEmail = useSelector(state => state.userProfile.user.email);
   const login = !!getCookie('access');
-  const [data, setData] = useState({
+
+  const { values, setValues } = useForm({
     name: userName,
     email: userEmail,
-    password: '',
+    password: ''
   });
-  const render = data.name !== userName || data.email !== userEmail || data.password.length > 0;
 
-  const saveChanges = (e) => {
+  const render = values.name !== userName || values.email !== userEmail || values.password.length > 0;
+
+  const saveChanges: FormEventHandler = (e) => {
     e.preventDefault();
-    const { email, name, password } = data;
+    const { email, name, password } = values;
     dispatch(patchUserInfoApi(email, name, password));
-    setData({
+    setValues({
       name: userName,
       email: userEmail,
       password: ''
@@ -31,7 +33,7 @@ function Profile() {
   };
 
   const cancelChanges = () => {
-    setData({
+    setValues({
       name: userName,
       email: userEmail,
       password: ''
@@ -44,7 +46,7 @@ function Profile() {
   }, [dispatch]);
 
   useEffect(() => {
-    setData({
+    setValues({
       name: userName,
       email: userEmail,
       password: ''
@@ -85,19 +87,19 @@ function Profile() {
         <form className={styles.inputs} onSubmit={saveChanges}>
           <div className='mt-6'>
             <Input type='text' placeholder={'Имя'} icon={'EditIcon'}
-              onChange={e => setData({ ...data, name: e.target.value })}
-              value={data.name}
+              onChange={e => setValues({ ...values, name: e.target.value })}
+              value={values.name}
             />
           </div>
           <div className='mt-6'>
             <Input type='email' placeholder={'Логин'} icon={'EditIcon'}
-              onChange={e => setData({ ...data, email: e.target.value })}
-              value={data.email} />
+              onChange={e => setValues({ ...values, email: e.target.value })}
+              value={values.email} />
           </div>
           <div className='mt-6 mb-6'>
             <Input type='password' placeholder={'Пароль'} icon={'EditIcon'}
-              onChange={e => setData({ ...data, password: e.target.value })}
-              value={data.password} />
+              onChange={e => setValues({ ...values, password: e.target.value })}
+              value={values.password} />
           </div>
           {render ? <div className={styles.button_container}>
             <div className={styles.button}><Button

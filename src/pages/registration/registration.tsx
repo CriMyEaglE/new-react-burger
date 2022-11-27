@@ -1,33 +1,26 @@
 import styles from './registration.module.css';
-import { useRef, useState } from 'react';
+import { useRef, FormEventHandler } from 'react';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
 import { registrationUserApi } from '../../services/actions/registration'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useForm, useSelector } from '../../components/utils/hooks';
+import { getCookie } from '../../components/utils/coockie';
 
 function Registration() {
    const success = useSelector(state => state.registrationUser.success);
-   const login = JSON.parse(sessionStorage.getItem('login'));
+   const login: boolean = !!getCookie('access')
    const dispatch = useDispatch();
-   const handleRegistration = (e) => {
+   const handleRegistration: FormEventHandler = (e) => {
       e.preventDefault();
       const userData = {
-         name: data.name,
-         email: data.email,
-         password: data.password
+         name: values.name,
+         email: values.email,
+         password: values.password
       };
       dispatch(registrationUserApi(userData));
    }
-   const [input, setInput] = useState({
-      type: 'password',
-      icon: 'ShowIcon'
-   });
 
-   const togglePasswordVision = () => {
-      input.type === 'password' ? setInput({ type: 'text', icon: 'HideIcon' }) : setInput({ type: 'password', icon: 'ShowIcon' });
-   }
-
-   const [data, setData] = useState({
+   const { values, setValues } = useForm({
       name: '',
       email: '',
       password: ''
@@ -44,28 +37,26 @@ function Registration() {
          <h3 className={`${styles.title} text_type_main-medium`}>Регистрация</h3>
          <div className='mt-6 mb-6'>
             <Input type='text' placeholder={'Имя'}
-               onChange={e => setData({ ...data, name: e.target.value })}
-               value={data.name}
+               onChange={e => setValues({ ...values, name: e.target.value })}
+               value={values.name}
                name={'name'}
                error={false}
                ref={inputRef}
                errorText={'Ошибка'} />
          </div>
          <Input type='email' placeholder={'E-mail'}
-            onChange={e => setData({ ...data, email: e.target.value })}
-            value={data.email}
+            onChange={e => setValues({ ...values, email: e.target.value })}
+            value={values.email}
             name={'name'}
             error={false}
             ref={inputRef}
             errorText={'Ошибка'} />
          <div className='mt-6 mb-6'>
             <PasswordInput
-               onChange={e => setData({ ...data, password: e.target.value })}
-               value={data.password}
-               type={input.type}
+               onChange={e => setValues({ ...values, password: e.target.value })}
+               value={values.password}
                placeholder={'Пароль'}
-               icon={input.icon}
-               onIconClick={togglePasswordVision} />
+               icon={'ShowIcon'} />
          </div>
          <Button
             htmlType='submit'

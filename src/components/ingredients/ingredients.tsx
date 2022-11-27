@@ -1,7 +1,15 @@
-import { useMemo } from 'react';
+import { useMemo, FC } from 'react';
 import IngredientCard from '../ingredient-card/ingredient-card';
+import { TIngredient } from '../utils/type';
 
-function Ingredients({ onClick, type, ingredients, ingredientsRequest }) {
+type TIngredients = {
+   onClick: (item: TIngredient) => void,
+   type: string,
+   ingredients: TIngredient[],
+   ingredientsRequest: boolean
+}
+
+const Ingredients: FC<TIngredients> = ({ onClick, type, ingredients, ingredientsRequest }) => {
    const content = useMemo(
       () => {
          return ingredientsRequest ? (

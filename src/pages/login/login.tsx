@@ -1,31 +1,21 @@
 import styles from './login.module.css';
-import { useEffect, useRef, useState } from 'react';
-import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useEffect, useRef, useState, FC, FormEventHandler } from 'react';
+import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useHistory } from 'react-router-dom';
 import { loginUserApi } from '../../services/actions/login';
-import { useDispatch } from 'react-redux';
 import { getCookie } from '../../components/utils/coockie';
+import { useDispatch, useForm } from '../../components/utils/hooks';
 
-function Login() {
-   const [email, setEmail] = useState('');
-   const [password, setPassword] = useState('');
-   const [input, setInput] = useState({
-      type: 'password',
-      icon: 'ShowIcon'
-   });
+const Login: FC = () => {
+   const { values, setValues } = useForm({ email: '', password: '' });
    const inputRef = useRef(null);
    const dispatch = useDispatch();
    const history = useHistory();
-   const login = !!getCookie('access');
-   console.log(login)
-   const handleLogin = (e) => {
+   const login: boolean = !!getCookie('access');
+   const handleLogin: FormEventHandler = (e) => {
       e.preventDefault();
-      const userData = {
-         email,
-         password
-      }
+      const userData = values;
       dispatch(loginUserApi(userData))
-      console.log(login)
    }
 
    useEffect(() => {
@@ -34,18 +24,14 @@ function Login() {
       }
    }, [login, history])
 
-   const togglePasswordVision = () => {
-      input.type === 'password' ? setInput({ type: 'text', icon: 'HideIcon' }) : setInput({ type: 'password', icon: 'ShowIcon' });
-   }
-
    return (
       <div className={styles.container}>
          <form className={styles.container} onSubmit={handleLogin}>
             <h3 className={`${styles.title} text_type_main-medium`}>Вход</h3>
             <div className='mt-6'>
                <Input type='email' placeholder={'E-mail'}
-                  onChange={e => setEmail(e.target.value)}
-                  value={email}
+                  onChange={e => setValues({ ...values, email: e.target.value })}
+                  value={values.email}
                   name={'name'}
                   error={false}
                   ref={inputRef}
@@ -53,12 +39,9 @@ function Login() {
             </div>
             <div className='mt-6 mb-6'>
                <PasswordInput
-                  onChange={e => setPassword(e.target.value)}
-                  type={input.type}
-                  icon={input.icon}
+                  onChange={e => setValues({ ...values, password: e.target.value })}
                   placeholder={'Пароль'}
-                  value={password}
-                  onIconClick={togglePasswordVision} />
+                  value={values.password} />
             </div>
             <Button
                htmlType='submit'

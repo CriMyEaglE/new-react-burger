@@ -1,6 +1,14 @@
+import { TIngredient } from '../utils/type';
 import styles from './ingredient-details.module.css';
+import { FC } from 'react';
 
-function IngredientDetails({ item }) {
+// type TIngredientDetails = {
+//    item: TIngredient
+// }
+
+const IngredientDetails: FC = () => {
+   const item: TIngredient = JSON.parse(localStorage
+      .getItem('ingredient') as string);
    return (
       <div>
          <h3 className={`${styles.title} text text_type_main-large`}>Детали игредиента</h3>

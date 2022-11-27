@@ -5,13 +5,6 @@ import {
    ActionCreator
 } from 'redux'
 
-import {
-   TypedUseSelectorHook,
-   useDispatch as dispatchHook,
-   useSelector as selectorHook
-} from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-
 export type TIngredient = {
    _id: string,
    name: string,
@@ -25,7 +18,7 @@ export type TIngredient = {
    image_mobile: string,
    image_large: string,
    __v: number,
-   id?: string
+   id: string
 };
 
 export type TStore = ReturnType<typeof store.getState>;
@@ -38,5 +31,4 @@ export type TApi<ReturnType = void> = ActionCreator<
 
 export type RootState = ReturnType<typeof store.getState>;
 
-export const useDispatch = dispatchHook<ThunkDispatch<RootState, never, TBunch>>;
-export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
+

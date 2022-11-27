@@ -4,25 +4,22 @@ import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burg
 import { Link, Redirect } from 'react-router-dom';
 import { getResetSuccessApi } from '../../services/actions/reset-password';
 import { getCookie } from '../../components/utils/coockie';
-import { useSelector } from '../../components/utils/type';
+import { useForm, useSelector } from '../../components/utils/hooks';
 
 const ResetPassword: FC = () => {
    const login: boolean = !!getCookie('access');
    const reseted = useSelector(state => state.resetPassword.success);
    const [value, setValue] = useState('');
    const inputRef = useRef<HTMLInputElement>(null);
-   const [input, setInput] = useState({
-      type: 'password',
-      icon: 'ShowIcon'
-   });
-
-   const togglePasswordVision = () => {
-      input.type === 'password' ? setInput({ type: 'text', icon: 'HideIcon' }) : setInput({ type: 'password', icon: 'ShowIcon' });
-   }
    const resetPassword: FormEventHandler = (e) => {
       e.preventDefault();
       getResetSuccessApi()
    }
+
+   const { values, setValues } = useForm({
+      code: '',
+      password: ''
+   });
 
    if (login) {
       return (<Redirect to={'/profile'} />)
@@ -37,16 +34,13 @@ const ResetPassword: FC = () => {
          <h3 className={`${styles.title} text_type_main-medium`}>Восстановление пароля</h3>
          <div className='mt-6'>
             <PasswordInput
-               onChange={e => setValue(e.target.value)}
-               // type={input.type}
+               onChange={e => setValues({ ...values, password: e.target.value })}
                placeholder={'Введите новый пароль'}
-               // icon={input.icon}
                value='' />
-            {/* onIconClick={togglePasswordVision} /> */}
          </div>
          <div className='mt-6 mb-6'>
             <Input type='text' placeholder={'Введите код из письма'}
-               onChange={e => setValue(e.target.value)}
+               onChange={e => setValues({ ...values, code: e.target.value })}
                value={value}
                name={'name'}
                error={false}

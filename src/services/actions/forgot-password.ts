@@ -12,7 +12,7 @@ export interface IGetRestoreSuccess {
 export type TForgotPassword =
    | IGetRestoreSuccess
 
-const getRestoreSuccess = (payload: boolean) => ({
+const getRestoreSuccess = (payload: boolean): IGetRestoreSuccess => ({
    type: GET_RESTORE_SUCCESS,
    payload
 })

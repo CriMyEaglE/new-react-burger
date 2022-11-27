@@ -1,33 +1,45 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback } from 'react';
+import { useCallback, FC } from 'react';
 import { useDrop } from 'react-dnd';
-import { useSelector, useDispatch } from 'react-redux';
 import { getConstructorBun, getConstructorItem, moveConstructorItem, deleteConstructorItem } from '../../services/actions/burger-constructor';
 import { v4 as uuidv4 } from 'uuid';
 import BurgerItem from "../burger-item/burger-item";
 import styles from './burger-constructor.module.css';
+import { useDispatch, useSelector } from "../utils/hooks";
+import { TIngredient } from "../utils/type";
 
-function BurgerConstructor() {
+type TItem = {
+   id: string,
+   element: TIngredient,
+   type: string,
+}
+
+const BurgerConstructor: FC = () => {
    const dispatch = useDispatch();
    const store = useSelector(store => store.constructorList.constructorList);
+   console.log(store)
 
    const [{ isOver }, drop] = useDrop(() => ({
       accept: 'ingredient',
-      drop: (item) => addConstructorItem(item),
+      drop: (item: TIngredient) => {
+         console.log(item)
+         addConstructorItem(item)
+      },
       collect: (monitor) => ({
          isOver: !!monitor.isOver(),
       }),
    }))
 
-   const addConstructorItem = (item) => {
+   const addConstructorItem = (item: TIngredient) => {
       item = { ...item, id: uuidv4() }
+      console.log(item)
       dispatch(getConstructorItem(item))
       dispatch(getConstructorBun(item))
    }
-   const moveItem = useCallback((dragIndex, hoverIndex) => {
+   const moveItem = useCallback((dragIndex: number, hoverIndex: number) => {
       dispatch(moveConstructorItem(dragIndex, hoverIndex))
    }, [])
-   const deleteItem = (item) => {
+   const deleteItem = (item: TIngredient) => {
       dispatch(deleteConstructorItem(item))
    }
    return (
@@ -48,7 +60,7 @@ function BurgerConstructor() {
             }
          </div >
          <div className={styles.scroll}>
-            {store.map((item, index) => {
+            {store.map((item: TIngredient, index) => {
                return item.type !== 'bun' &&
                   (<BurgerItem
                      key={item.id}

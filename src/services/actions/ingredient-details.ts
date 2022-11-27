@@ -16,11 +16,11 @@ export type TIngredientDetails =
    | IGetIngredientDetails
    | IRemoveIngredientDetails
 
-export const getIngredientDetails = (payload: TIngredient) => ({
+export const getIngredientDetails = (payload: TIngredient): IGetIngredientDetails => ({
    type: GET_INGREDIENT_DETAILS,
    payload
 });
 
-export const removeIngredientDetails = () => ({
+export const removeIngredientDetails = (): IRemoveIngredientDetails => ({
    type: REMOVE_INGREDIENT_DETAILS,
 });

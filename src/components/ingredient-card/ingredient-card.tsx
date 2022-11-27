@@ -1,10 +1,16 @@
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './ingredient.module.css';
 import { useDrag } from 'react-dnd';
-import { useSelector } from "react-redux";
-import { useMemo } from "react";
+import { useMemo, FC } from "react";
+import { TIngredient } from '../utils/type';
+import { useSelector } from "../utils/hooks";
 
-function IngredientCard({ item, onClick }) {
+type TIngredientCard = {
+   item: TIngredient,
+   onClick: (item: TIngredient) => void
+}
+
+const IngredientCard: FC<TIngredientCard> = ({ item, onClick }) => {
    const store = useSelector(store => store.constructorList.constructorList);
    const count = useMemo(() => {
       if (item.type === 'bun') {
@@ -22,10 +28,10 @@ function IngredientCard({ item, onClick }) {
    }));
 
    return (
-      <button onClick={(e) => onClick(item)} ref={drag} style={{ border: isDragging ? '2px solid #8585AD' : 'none', borderRadius: isDragging ? '10%' : 'none' }}>
+      <button onClick={() => onClick(item)} ref={drag} style={{ border: isDragging ? '2px solid #8585AD' : 'none', borderRadius: isDragging ? '10%' : 'none' }}>
          <div className={styles.counter}>
             {count ?
-               <Counter id={item._id} count={count} />
+               <Counter count={count} />
                : null}
          </div>
          <img src={item.image} className={'mr-4 ml-4 mb-1'} />
