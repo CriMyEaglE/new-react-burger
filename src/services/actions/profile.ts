@@ -1,21 +1,45 @@
 import { request } from "../../components/utils/api";
 import { BASE_URL } from "../../components/utils/constants";
 import { getCookie, refreshToken } from "../../components/utils/coockie";
+import { TApi, TDispatch } from "../../components/utils/type";
 
 export const GET_USER_INFO = 'GET_USER_INFO';
 export const PATCH_USER_INFO = 'PATCH_USER_INFO';
 
-const getUserInfo = (payload) => ({
+type TUser = {
+   email: string,
+   name: string
+}
+
+type TPayload = {
+   success: boolean,
+   user: TUser
+}
+
+interface IGetUserInfo {
+   readonly type: typeof GET_USER_INFO,
+   readonly payload: TPayload
+}
+
+interface IPatchUserInfo {
+   readonly type: typeof PATCH_USER_INFO,
+   readonly payload: TPayload
+}
+export type TProfile =
+   | IGetUserInfo
+   | IPatchUserInfo
+
+const getUserInfo = (payload: TPayload): IGetUserInfo => ({
    type: GET_USER_INFO,
    payload
 });
 
-const patchUserInfo = (payload) => ({
+const patchUserInfo = (payload: TPayload): IPatchUserInfo => ({
    type: PATCH_USER_INFO,
    payload
 });
 
-export const getUserInfoApi = () => {
+export const getUserInfoApi: TApi = () => {
    const url = `${BASE_URL}/auth/user`;
    const options = {
       headers: {
@@ -24,7 +48,7 @@ export const getUserInfoApi = () => {
       }
    };
 
-   return (dispatch) => {
+   return (dispatch: TDispatch) => {
       request(url, options)
          .then((data) => {
             const { success } = data;
@@ -40,7 +64,7 @@ export const getUserInfoApi = () => {
    }
 }
 
-export const patchUserInfoApi = (email, name, password) => {
+export const patchUserInfoApi: TApi = (email: string, name: string, password: string) => {
    const url = `${BASE_URL}/auth/user`;
    const options = {
       method: 'PATCH',
@@ -55,7 +79,7 @@ export const patchUserInfoApi = (email, name, password) => {
       })
    };
 
-   return (dispatch) => {
+   return (dispatch: TDispatch) => {
       request(url, options)
          .then((data) => {
             const { success } = data;

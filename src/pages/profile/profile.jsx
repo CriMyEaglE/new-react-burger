@@ -5,12 +5,13 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUserApi } from '../../services/actions/login';
 import { getUserInfoApi, patchUserInfoApi } from '../../services/actions/profile';
+import { getCookie, setCookie } from '../../components/utils/coockie';
 
 function Profile() {
   const dispatch = useDispatch();
   const userName = useSelector(state => state.userProfile.user.name);
   const userEmail = useSelector(state => state.userProfile.user.email);
-  const login = JSON.parse(sessionStorage.getItem('login'));
+  const login = !!getCookie('access');
   const [data, setData] = useState({
     name: userName,
     email: userEmail,
@@ -39,8 +40,7 @@ function Profile() {
 
   const logoutUser = useCallback(() => {
     dispatch(logoutUserApi());
-    sessionStorage
-      .setItem('login', JSON.stringify(false));
+    setCookie('access', '', { expires: -1 });
   }, [dispatch]);
 
   useEffect(() => {

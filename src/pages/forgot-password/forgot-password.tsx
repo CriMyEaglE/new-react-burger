@@ -1,24 +1,25 @@
 import styles from './forgot-password.module.css';
-import { useCallback, useRef, useState } from 'react';
+import { FormEventHandler, useCallback, useRef, useState } from 'react';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import { getRestoreSuccessApi } from '../../services/actions/forgot-password';
 import { Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from '../../components/utils/type';
+import { getCookie } from '../../components/utils/coockie';
 
 function ForgotPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
   const success = useSelector(state => state.restorePassword.success);
-  const login = JSON.parse(sessionStorage.getItem('login'));
+  const login: boolean = !!getCookie('access');
   const [email, setEmail] = useState('');
   const inputRef = useRef(null)
 
 
-  const restorePassword = useCallback((e) => {
+  const restorePassword: FormEventHandler = useCallback((e) => {
     e.preventDefault();
     dispatch(getRestoreSuccessApi());
-    // success ? history.push('/reset-password') : history.push('/forgot-password')
+    success ? history.push('/reset-password') : history.push('/forgot-password')
   }, [dispatch, success, history])
 
   if (success) {

@@ -4,9 +4,9 @@ import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burg
 import { Link, useHistory } from 'react-router-dom';
 import { loginUserApi } from '../../services/actions/login';
 import { useDispatch } from 'react-redux';
+import { getCookie } from '../../components/utils/coockie';
 
 function Login() {
-
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
    const [input, setInput] = useState({
@@ -16,8 +16,8 @@ function Login() {
    const inputRef = useRef(null);
    const dispatch = useDispatch();
    const history = useHistory();
-   const login = JSON.parse(sessionStorage.getItem('login'));
-
+   const login = !!getCookie('access');
+   console.log(login)
    const handleLogin = (e) => {
       e.preventDefault();
       const userData = {
@@ -25,6 +25,7 @@ function Login() {
          password
       }
       dispatch(loginUserApi(userData))
+      console.log(login)
    }
 
    useEffect(() => {

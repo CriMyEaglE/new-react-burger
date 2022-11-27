@@ -1,16 +1,16 @@
 import styles from './reset-password.module.css';
-import { useRef, useState } from 'react';
+import { FC, FormEventHandler, useRef, useState } from 'react';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
 import { getResetSuccessApi } from '../../services/actions/reset-password';
-import { useSelector } from 'react-redux';
+import { getCookie } from '../../components/utils/coockie';
+import { useSelector } from '../../components/utils/type';
 
-function ResetPassword() {
-   const login = JSON.parse(sessionStorage.getItem('login'));
+const ResetPassword: FC = () => {
+   const login: boolean = !!getCookie('access');
    const reseted = useSelector(state => state.resetPassword.success);
-   console.log(login, reseted)
    const [value, setValue] = useState('');
-   const inputRef = useRef(null);
+   const inputRef = useRef<HTMLInputElement>(null);
    const [input, setInput] = useState({
       type: 'password',
       icon: 'ShowIcon'
@@ -19,7 +19,7 @@ function ResetPassword() {
    const togglePasswordVision = () => {
       input.type === 'password' ? setInput({ type: 'text', icon: 'HideIcon' }) : setInput({ type: 'password', icon: 'ShowIcon' });
    }
-   const resetPassword = (e) => {
+   const resetPassword: FormEventHandler = (e) => {
       e.preventDefault();
       getResetSuccessApi()
    }
@@ -38,11 +38,11 @@ function ResetPassword() {
          <div className='mt-6'>
             <PasswordInput
                onChange={e => setValue(e.target.value)}
-               type={input.type}
+               // type={input.type}
                placeholder={'Введите новый пароль'}
-               icon={input.icon}
-               value=''
-               onIconClick={togglePasswordVision} />
+               // icon={input.icon}
+               value='' />
+            {/* onIconClick={togglePasswordVision} /> */}
          </div>
          <div className='mt-6 mb-6'>
             <Input type='text' placeholder={'Введите код из письма'}

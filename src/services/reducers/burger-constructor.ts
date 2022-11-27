@@ -5,34 +5,40 @@ import {
    CLEAR_CONSTRUCTOR_LIST
 } from '../actions/burger-constructor';
 import update from 'immutability-helper';
+import { TIngredient } from '../../components/utils/type';
+import { TBunch } from '../actions/rootActions';
 
-const constructorState = {
+type TIinitialState = {
+   constructorList: Array<TIngredient>
+}
+
+const constructorState: TIinitialState = {
    constructorList: []
 }
 
-export const constructorReducer = (state = constructorState, action) => {
+export const constructorReducer = (state = constructorState, action: TBunch): TIinitialState => {
    switch (action.type) {
       case GET_CONSTRUCTOR_ITEM: {
          return {
             ...state,
-            constructorList: !state.constructorList.find(item => item.type === 'bun') || action.item.type !== 'bun'
-               ? [...state.constructorList, action.item]
+            constructorList: !state.constructorList.find(item => item.type === 'bun') || action.payload.type !== 'bun'
+               ? [...state.constructorList, action.payload]
                : [...state.constructorList]
          }
       }
       case DELETE_CONSTRUCTOR_ITEM: {
          return {
             ...state,
-            constructorList: action.item.type !== 'bun'
-               ? state.constructorList.filter((item) => item.id !== action.item.id)
+            constructorList: action.payload.type !== 'bun'
+               ? state.constructorList.filter((item) => item.id !== action.payload.id)
                : [...state.constructorList]
          }
       }
       case GET_CONSTRUCTOR_BUN: {
          return {
             ...state,
-            constructorList: action.item.type === 'bun'
-               ? [...state.constructorList.filter(item => item.type !== 'bun'), action.item]
+            constructorList: action.payload.type === 'bun'
+               ? [...state.constructorList.filter(item => item.type !== 'bun'), action.payload]
                : [...state.constructorList]
          }
       }
@@ -41,8 +47,8 @@ export const constructorReducer = (state = constructorState, action) => {
             ...state,
             constructorList: [...update(state.constructorList, {
                $splice: [
-                  [action.dragIndex, 1],
-                  [action.hoverIndex, 0, state.constructorList[action.dragIndex]]
+                  [action.payload.dragIndex, 1],
+                  [action.payload.hoverIndex, 0, state.constructorList[action.payload.dragIndex]]
                ]
             })]
          }

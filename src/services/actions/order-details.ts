@@ -1,21 +1,37 @@
 import { clearConstructorList } from "./burger-constructor";
 import { BASE_URL } from "../../components/utils/constants";
 import { checkResponse } from "../../components/utils/api";
+import { TApi } from "../../components/utils/type";
 
 export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
 export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
 
-const getOrderSucces = (id) => ({
+export interface IGetOrderRequest {
+   type: typeof GET_ORDER_REQUEST
+}
+export interface IGetOrderSuccess {
+   type: typeof GET_ORDER_SUCCESS,
+   payload: string
+}
+export interface IGetOrderFailed {
+   type: typeof GET_ORDER_FAILED
+}
+
+export type TOrder =
+   | IGetOrderRequest
+   | IGetOrderSuccess
+   | IGetOrderFailed
+const getOrderSucces = (id: string): IGetOrderSuccess => ({
    type: GET_ORDER_SUCCESS,
-   id
+   payload: id
 });
 
 export const getOrderRequest = () => ({
    type: GET_ORDER_REQUEST
 })
 
-export const getOrderDetails = (id) => {
+export const getOrderDetails: TApi = (id: string[]) => {
    return (dispatch) => {
       fetch(`${BASE_URL}/orders`, {
          method: 'POST',

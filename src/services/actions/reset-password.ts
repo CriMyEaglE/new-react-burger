@@ -1,14 +1,22 @@
 import { request } from "../../components/utils/api";
 import { BASE_URL } from "../../components/utils/constants";
+import { TApi, TDispatch } from "../../components/utils/type";
 
-export const GET_RESET_SUCCESS = 'GET_RESET_PASSWORD_SUCCESS';
+export const GET_RESET_SUCCESS = 'GET_RESET_SUCCESS';
 
-const getResetSuccess = (payload) => ({
+export interface IGetResetSuccess {
+  type: typeof GET_RESET_SUCCESS,
+  payload: boolean
+}
+export type TResetPassword =
+  | IGetResetSuccess
+
+const getResetSuccess = (payload: boolean): IGetResetSuccess => ({
   type: GET_RESET_SUCCESS,
   payload
 })
 
-export const getResetSuccessApi = () => {
+export const getResetSuccessApi: TApi = () => {
   const url = `${BASE_URL}/password-reset/reset`;
   const options = {
     method: 'POST',
@@ -18,7 +26,7 @@ export const getResetSuccessApi = () => {
       token: ''
     })
   };
-  return (dispatch) => {
+  return (dispatch: TDispatch) => {
     request(url, options)
       .then(({ success, message }) => {
         dispatch(getResetSuccess(success));

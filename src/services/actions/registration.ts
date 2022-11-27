@@ -1,14 +1,34 @@
 import { request } from "../../components/utils/api";
 import { BASE_URL } from "../../components/utils/constants";
+import { TApi, TDispatch } from "../../components/utils/type";
 
 export const REGISTRATION_USER = 'REGISTRATION_USER';
 
-const registrationUser = (payload) => ({
+export type TUser = {
+   email: string,
+   password: string,
+   name: string
+}
+
+export type TPayload = {
+   success: boolean,
+   user: TUser
+}
+
+interface IRegistrationUser {
+   readonly type: typeof REGISTRATION_USER,
+   readonly payload: TPayload
+}
+
+export type TRegistrationUser =
+   | IRegistrationUser
+
+const registrationUser = (payload: TPayload): IRegistrationUser => ({
    type: REGISTRATION_USER,
    payload
 });
 
-export const registrationUserApi = (userData) => {
+export const registrationUserApi: TApi = (userData: TUser) => {
    const { email, password, name } = userData;
    const url = `${BASE_URL}/auth/register`;
    const options = {
@@ -21,7 +41,7 @@ export const registrationUserApi = (userData) => {
       })
    };
 
-   return (dispatch) => {
+   return (dispatch: TDispatch) => {
       request(url, options)
          .then((res) => {
             dispatch(registrationUser(res));

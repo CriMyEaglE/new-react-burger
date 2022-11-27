@@ -1,26 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
-import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
-import { rootReducer } from '../src/services/reducers/rootReducers';
-import thunk from 'redux-thunk';
-import { createRoot } from 'react-dom/client';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './components/app/app';
+import { store } from './components/utils/store';
 
-const composeEnhancers =
-  typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose;
-
-const enhancer = composeEnhancers(applyMiddleware(thunk));
-
-const store = createStore(rootReducer, enhancer);
-
-const container = document.getElementById('root');
-const root = createRoot(container);
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLDivElement);
 root.render(
   <Router>
     <React.StrictMode>

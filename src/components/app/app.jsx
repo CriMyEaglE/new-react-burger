@@ -22,7 +22,7 @@ import Profile from '../../pages/profile/profile';
 import ResetPassword from '../../pages/reset-password/reset-password';
 import Ingredient from '../../pages/ingredient/ingredient';
 import NotFound from '../../pages/not-found/not-found';
-import { ProtectedRoute } from '../utils/protected-route';
+import { ProtectedRoute } from '../../pages/protected-route/protected-route';
 
 function App() {
   const [isOpen, setOpen] = useState(false);
