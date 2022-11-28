@@ -1,11 +1,11 @@
 import { clearConstructorList } from "./burger-constructor";
-import { BASE_URL } from "../../components/utils/constants";
-import { checkResponse } from "../../components/utils/api";
-import { TApi } from "../../components/utils/type";
+import { BASE_URL } from "../../utils/constants";
+import { checkResponse } from "../../utils/api";
+import { TApi } from "../../utils/type";
 
-export const GET_ORDER_REQUEST = 'GET_ORDER_REQUEST';
-export const GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS';
-export const GET_ORDER_FAILED = 'GET_ORDER_FAILED';
+export const GET_ORDER_REQUEST: 'GET_ORDER_REQUEST' = 'GET_ORDER_REQUEST';
+export const GET_ORDER_SUCCESS: 'GET_ORDER_SUCCESS' = 'GET_ORDER_SUCCESS';
+export const GET_ORDER_FAILED: 'GET_ORDER_FAILED' = 'GET_ORDER_FAILED';
 
 export interface IGetOrderRequest {
    type: typeof GET_ORDER_REQUEST
@@ -18,7 +18,7 @@ export interface IGetOrderFailed {
    type: typeof GET_ORDER_FAILED
 }
 
-export type TOrder =
+export type TOrderActions =
    | IGetOrderRequest
    | IGetOrderSuccess
    | IGetOrderFailed

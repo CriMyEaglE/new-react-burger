@@ -1,15 +1,15 @@
-import { request } from "../../components/utils/api";
-import { BASE_URL } from "../../components/utils/constants";
-import { TDispatch } from "../../components/utils/type";
+import { request } from "../../utils/api";
+import { BASE_URL } from "../../utils/constants";
+import { TDispatch } from "../../utils/type";
 
-export const GET_RESTORE_SUCCESS = 'GET_RESTORE_SUCCESS';
+export const GET_RESTORE_SUCCESS: 'GET_RESTORE_SUCCESS' = 'GET_RESTORE_SUCCESS';
 
 export interface IGetRestoreSuccess {
    readonly type: typeof GET_RESTORE_SUCCESS,
    readonly payload: boolean
 }
 
-export type TForgotPassword =
+export type TForgotPasswordActions =
    | IGetRestoreSuccess
 
 const getRestoreSuccess = (payload: boolean): IGetRestoreSuccess => ({

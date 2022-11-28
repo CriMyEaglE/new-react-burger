@@ -1,10 +1,10 @@
-import { BASE_URL } from "../../components/utils/constants";
-import { checkResponse } from "../../components/utils/api";
-import { TApi, TDispatch, TIngredient } from "../../components/utils/type";
+import { BASE_URL } from "../../utils/constants";
+import { checkResponse } from "../../utils/api";
+import { TApi, TDispatch, TIngredient } from "../../utils/type";
 
-export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
-export const GET_INGREDIENTS_SUCCESS = 'GET_INGREDIENTS_SUCCESS';
-export const GET_INGREDIENTS_FAILED = 'GET_INGREDIENTSv_FAILED';
+export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
+export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
+export const GET_INGREDIENTS_FAILED: 'GET_INGREDIENTS_FAILED' = 'GET_INGREDIENTS_FAILED';
 
 export interface IGetIngredientsRequest {
    readonly type: typeof GET_INGREDIENTS_REQUEST
@@ -17,7 +17,7 @@ export interface IGetIngredientsFailed {
    readonly type: typeof GET_INGREDIENTS_FAILED
 }
 
-export type TIngredients =
+export type TIngredientsActions =
    | IGetIngredientsRequest
    | IGetIngredientsSuccess
    | IGetIngredientsFailed

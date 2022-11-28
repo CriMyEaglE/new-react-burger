@@ -2,8 +2,8 @@ import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-c
 import styles from './ingredient.module.css';
 import { useDrag } from 'react-dnd';
 import { useMemo, FC } from "react";
-import { TIngredient } from '../utils/type';
-import { useSelector } from "../utils/hooks";
+import { TIngredient } from '../../utils/type';
+import { useSelector } from "../../utils/hooks";
 
 type TIngredientCard = {
    item: TIngredient,

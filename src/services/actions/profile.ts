@@ -1,10 +1,10 @@
-import { request } from "../../components/utils/api";
-import { BASE_URL } from "../../components/utils/constants";
-import { getCookie, refreshToken } from "../../components/utils/coockie";
-import { TApi, TDispatch } from "../../components/utils/type";
+import { request } from "../../utils/api";
+import { BASE_URL } from "../../utils/constants";
+import { getCookie, refreshToken } from "../../utils/coockie";
+import { TApi, TDispatch } from "../../utils/type";
 
-export const GET_USER_INFO = 'GET_USER_INFO';
-export const PATCH_USER_INFO = 'PATCH_USER_INFO';
+export const GET_USER_INFO: 'GET_USER_INFO' = 'GET_USER_INFO';
+export const PATCH_USER_INFO: 'PATCH_USER_INFO' = 'PATCH_USER_INFO';
 
 type TUser = {
    email: string,
@@ -25,7 +25,7 @@ interface IPatchUserInfo {
    readonly type: typeof PATCH_USER_INFO,
    readonly payload: TPayload
 }
-export type TProfile =
+export type TProfileActions =
    | IGetUserInfo
    | IPatchUserInfo
 

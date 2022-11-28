@@ -1,6 +1,6 @@
 import { useMemo, FC } from 'react';
 import IngredientCard from '../ingredient-card/ingredient-card';
-import { TIngredient } from '../utils/type';
+import { TIngredient } from '../../utils/type';
 
 type TIngredients = {
    onClick: (item: TIngredient) => void,

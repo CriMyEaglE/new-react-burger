@@ -3,8 +3,8 @@ import { useRef, FormEventHandler } from 'react';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
 import { registrationUserApi } from '../../services/actions/registration'
-import { useDispatch, useForm, useSelector } from '../../components/utils/hooks';
-import { getCookie } from '../../components/utils/coockie';
+import { useDispatch, useForm, useSelector } from '../../utils/hooks';
+import { getCookie } from '../../utils/coockie';
 
 function Registration() {
    const success = useSelector(state => state.registrationUser.success);

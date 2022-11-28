@@ -22,9 +22,9 @@ import ResetPassword from '../../pages/reset-password/reset-password';
 import Ingredient from '../../pages/ingredient/ingredient';
 import NotFound from '../../pages/not-found/not-found';
 import { ProtectedRoute } from '../../pages/protected-route/protected-route';
-import { useDispatch, useSelector } from '../utils/hooks';
-import { TIngredient } from '../utils/type';
-import { getCookie } from '../utils/coockie';
+import { useDispatch, useSelector } from '../../utils/hooks';
+import { TIngredient } from '../../utils/type';
+import { getCookie } from '../../utils/coockie';
 
 type TLocation = ReturnType<typeof useLocation>;
 type TUseLocation = {

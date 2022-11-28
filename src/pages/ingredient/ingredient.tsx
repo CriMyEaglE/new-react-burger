@@ -1,4 +1,4 @@
-import { TIngredient } from '../../components/utils/type';
+import { TIngredient } from '../../utils/type';
 import styles from './ingredient.module.css';
 import { FC } from 'react';
 

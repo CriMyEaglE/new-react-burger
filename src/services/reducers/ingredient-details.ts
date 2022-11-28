@@ -1,6 +1,6 @@
-import { TIngredient } from "../../components/utils/type";
+import { TIngredient } from "../../utils/type";
 import { GET_INGREDIENT_DETAILS, REMOVE_INGREDIENT_DETAILS } from "../actions/ingredient-details";
-import { TBunch } from "../actions/rootActions";
+import { TApplicationActions } from "../actions/rootActions";
 
 type TInitialState = {
    ingredientDetails: {
@@ -18,7 +18,7 @@ const ingredientDetailsState = {
    ingredientDetails: {}
 }
 
-export const ingredtientDetailsReducer = (state = ingredientDetailsState, action: TBunch): TInitialState => {
+export const ingredtientDetailsReducer = (state = ingredientDetailsState, action: TApplicationActions): TInitialState => {
    switch (action.type) {
       case GET_INGREDIENT_DETAILS: {
          return {

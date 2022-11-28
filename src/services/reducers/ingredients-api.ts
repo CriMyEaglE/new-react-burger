@@ -1,10 +1,10 @@
-import { TIngredient } from '../../components/utils/type';
+import { TIngredient } from '../../utils/type';
 import {
    GET_INGREDIENTS_FAILED,
    GET_INGREDIENTS_REQUEST,
    GET_INGREDIENTS_SUCCESS,
 } from '../actions/ingredients-api';
-import { TBunch } from '../actions/rootActions';
+import { TApplicationActions } from '../actions/rootActions';
 
 type TInitialState = {
    ingredients: [] | Array<TIngredient>,
@@ -18,7 +18,7 @@ const initialState = {
    ingredientsFailed: false,
 };
 
-export const ingredientsReducer = (state = initialState, action: TBunch): TInitialState => {
+export const ingredientsReducer = (state = initialState, action: TApplicationActions): TInitialState => {
    switch (action.type) {
       case GET_INGREDIENTS_REQUEST: {
          return {

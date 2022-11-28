@@ -3,7 +3,7 @@ import {
    GET_ORDER_SUCCESS,
    GET_ORDER_FAILED
 } from '../actions/order-details'
-import { TBunch } from '../actions/rootActions'
+import { TApplicationActions } from '../actions/rootActions'
 
 type TInitialState = {
    id: string,
@@ -19,7 +19,7 @@ const orderDetailsState: TInitialState = {
    orderFailed: false
 }
 
-export const orderDetailsReducer = (state = orderDetailsState, action: TBunch): TInitialState => {
+export const orderDetailsReducer = (state = orderDetailsState, action: TApplicationActions): TInitialState => {
    switch (action.type) {
       case GET_ORDER_REQUEST: {
          return {

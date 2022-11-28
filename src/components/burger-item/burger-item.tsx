@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrop, useDrag } from "react-dnd";
 import styles from './burger-item.module.css';
-import { TIngredient } from '../utils/type';
+import { TIngredient } from '../../utils/type';
 
 type TBurgerItem = {
    element: TIngredient,

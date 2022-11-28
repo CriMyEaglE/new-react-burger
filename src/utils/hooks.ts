@@ -4,11 +4,11 @@ import {
    useSelector as selectorHook
 } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { TBunch } from '../../services/actions/rootActions';
+import { TApplicationActions } from '../services/actions/rootActions';
 import { RootState } from './type';
 import { useState, ChangeEvent } from 'react';
 
-export const useDispatch = dispatchHook<ThunkDispatch<RootState, never, TBunch>>;
+export const useDispatch = dispatchHook<ThunkDispatch<RootState, never, TApplicationActions>>;
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
 export const useForm = (inputValues: { [key: string]: string }) => {

@@ -3,8 +3,8 @@ import { FC, FormEventHandler, useRef, useState } from 'react';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
 import { getResetSuccessApi } from '../../services/actions/reset-password';
-import { getCookie } from '../../components/utils/coockie';
-import { useForm, useSelector } from '../../components/utils/hooks';
+import { getCookie } from '../../utils/coockie';
+import { useForm, useSelector } from '../../utils/hooks';
 
 const ResetPassword: FC = () => {
    const login: boolean = !!getCookie('access');

@@ -1,5 +1,5 @@
 import { LOGIN_USER, LOGOUT_USER } from "../actions/login";
-import { TBunch } from "../actions/rootActions";
+import { TApplicationActions } from "../actions/rootActions";
 
 type TInitialState = {
    login: boolean,
@@ -10,7 +10,7 @@ const initialState = {
    logout: false
 };
 
-export const loginUserReducer = (state = initialState, action: TBunch): TInitialState => {
+export const loginUserReducer = (state = initialState, action: TApplicationActions): TInitialState => {
    switch (action.type) {
       case LOGOUT_USER: {
          return {

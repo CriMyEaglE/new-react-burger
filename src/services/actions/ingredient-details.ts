@@ -1,7 +1,7 @@
-import { TIngredient } from "../../components/utils/type";
+import { TIngredient } from "../../utils/type";
 
-export const GET_INGREDIENT_DETAILS = 'GET_INGREDIENT_DETAILS';
-export const REMOVE_INGREDIENT_DETAILS = 'REMOVE_INGREDIENT_DETAILS';
+export const GET_INGREDIENT_DETAILS: 'GET_INGREDIENT_DETAILS' = 'GET_INGREDIENT_DETAILS';
+export const REMOVE_INGREDIENT_DETAILS: 'REMOVE_INGREDIENT_DETAILS' = 'REMOVE_INGREDIENT_DETAILS';
 
 export interface IGetIngredientDetails {
    readonly type: typeof GET_INGREDIENT_DETAILS,
@@ -12,7 +12,7 @@ export interface IRemoveIngredientDetails {
    readonly type: typeof REMOVE_INGREDIENT_DETAILS
 }
 
-export type TIngredientDetails =
+export type TIngredientDetailsActions =
    | IGetIngredientDetails
    | IRemoveIngredientDetails
 

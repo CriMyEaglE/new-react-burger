@@ -4,8 +4,8 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { NavLink } from 'react-router-dom';
 import { logoutUserApi } from '../../services/actions/login';
 import { getUserInfoApi, patchUserInfoApi } from '../../services/actions/profile';
-import { getCookie, setCookie } from '../../components/utils/coockie';
-import { useDispatch, useForm, useSelector } from '../../components/utils/hooks';
+import { getCookie, setCookie } from '../../utils/coockie';
+import { useDispatch, useForm, useSelector } from '../../utils/hooks';
 
 function Profile() {
   const dispatch = useDispatch();

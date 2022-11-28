@@ -1,6 +1,6 @@
 import { store } from './store';
 import { ThunkAction } from 'redux-thunk';
-import { TBunch } from '../../services/actions/rootActions'
+import { TApplicationActions } from '../services/actions/rootActions'
 import {
    ActionCreator
 } from 'redux'
@@ -26,7 +26,7 @@ export type TStore = ReturnType<typeof store.getState>;
 export type TDispatch = typeof store.dispatch;
 
 export type TApi<ReturnType = void> = ActionCreator<
-   ThunkAction<ReturnType, TStore, never, TBunch>
+   ThunkAction<ReturnType, TStore, never, TApplicationActions>
 >;
 
 export type RootState = ReturnType<typeof store.getState>;

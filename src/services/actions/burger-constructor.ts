@@ -1,10 +1,10 @@
-import { TIngredient } from "../../components/utils/type";
+import { TIngredient } from "../../utils/type";
 
-export const GET_CONSTRUCTOR_ITEM = 'GET_CONSTRUCTOR_ITEM';
-export const DELETE_CONSTRUCTOR_ITEM = 'DELETE_CONSTRUCTOR_ITEM';
-export const GET_CONSTRUCTOR_BUN = 'GET_CONSTRUCTOR_BUN';
-export const CLEAR_CONSTRUCTOR_LIST = 'CLEAR_CONSTRUCTOR_LIST';
-export const MOVE_CONSTRUCTOR_ITEM = 'CONSTRUCTOR_ITEM';
+export const GET_CONSTRUCTOR_ITEM: 'GET_CONSTRUCTOR_ITEM' = 'GET_CONSTRUCTOR_ITEM';
+export const DELETE_CONSTRUCTOR_ITEM: 'DELETE_CONSTRUCTOR_ITEM' = 'DELETE_CONSTRUCTOR_ITEM';
+export const GET_CONSTRUCTOR_BUN: 'GET_CONSTRUCTOR_BUN' = 'GET_CONSTRUCTOR_BUN';
+export const CLEAR_CONSTRUCTOR_LIST: 'CLEAR_CONSTRUCTOR_LIST' = 'CLEAR_CONSTRUCTOR_LIST';
+export const MOVE_CONSTRUCTOR_ITEM: 'MOVE_CONSTRUCTOR_ITEM' = 'MOVE_CONSTRUCTOR_ITEM';
 
 export interface IGetConstructorBun {
   readonly type: typeof GET_CONSTRUCTOR_BUN,
@@ -30,7 +30,7 @@ export interface IMoveConstructorItem {
   }
 }
 
-export type TBurgerConstructor =
+export type TBurgerConstructorActions =
   | IGetConstructorBun
   | IGetConstructorItem
   | IDeleteConstructorItem

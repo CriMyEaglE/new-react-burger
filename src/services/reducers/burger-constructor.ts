@@ -5,8 +5,8 @@ import {
    CLEAR_CONSTRUCTOR_LIST
 } from '../actions/burger-constructor';
 import update from 'immutability-helper';
-import { TIngredient } from '../../components/utils/type';
-import { TBunch } from '../actions/rootActions';
+import { TIngredient } from '../../utils/type';
+import { TApplicationActions } from '../actions/rootActions';
 
 type TIinitialState = {
    constructorList: Array<TIngredient>
@@ -16,7 +16,7 @@ const constructorState: TIinitialState = {
    constructorList: []
 }
 
-export const constructorReducer = (state = constructorState, action: TBunch): TIinitialState => {
+export const constructorReducer = (state = constructorState, action: TApplicationActions): TIinitialState => {
    switch (action.type) {
       case GET_CONSTRUCTOR_ITEM: {
          return {

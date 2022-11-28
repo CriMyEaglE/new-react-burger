@@ -1,8 +1,8 @@
-import { request } from "../../components/utils/api";
-import { BASE_URL } from "../../components/utils/constants";
-import { TApi, TDispatch } from "../../components/utils/type";
+import { request } from "../../utils/api";
+import { BASE_URL } from "../../utils/constants";
+import { TApi, TDispatch } from "../../utils/type";
 
-export const REGISTRATION_USER = 'REGISTRATION_USER';
+export const REGISTRATION_USER: 'REGISTRATION_USER' = 'REGISTRATION_USER';
 
 export type TUser = {
    email: string,
@@ -20,7 +20,7 @@ interface IRegistrationUser {
    readonly payload: TPayload
 }
 
-export type TRegistrationUser =
+export type TRegistrationUserActions =
    | IRegistrationUser
 
 const registrationUser = (payload: TPayload): IRegistrationUser => ({

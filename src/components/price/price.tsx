@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './price.module.css';
-import { useSelector } from '../utils/hooks';
+import { useSelector } from '../../utils/hooks';
 function Price() {
 
    const store = useSelector(store => store.constructorList.constructorList)

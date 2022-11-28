@@ -1,14 +1,14 @@
-import { request } from "../../components/utils/api";
-import { BASE_URL } from "../../components/utils/constants";
-import { TApi, TDispatch } from "../../components/utils/type";
+import { request } from "../../utils/api";
+import { BASE_URL } from "../../utils/constants";
+import { TApi, TDispatch } from "../../utils/type";
 
-export const GET_RESET_SUCCESS = 'GET_RESET_SUCCESS';
+export const GET_RESET_SUCCESS: 'GET_RESET_SUCCESS' = 'GET_RESET_SUCCESS';
 
 export interface IGetResetSuccess {
   type: typeof GET_RESET_SUCCESS,
   payload: boolean
 }
-export type TResetPassword =
+export type TResetPasswordActions =
   | IGetResetSuccess
 
 const getResetSuccess = (payload: boolean): IGetResetSuccess => ({

@@ -1,5 +1,5 @@
 import { GET_USER_INFO, PATCH_USER_INFO } from "../actions/profile";
-import { TBunch } from "../actions/rootActions";
+import { TApplicationActions } from "../actions/rootActions";
 
 type TInitialState = {
    success: boolean,
@@ -17,7 +17,7 @@ const initialState = {
    },
 };
 
-export const getUserProfileReducer = (state = initialState, action: TBunch): TInitialState => {
+export const getUserProfileReducer = (state = initialState, action: TApplicationActions): TInitialState => {
    switch (action.type) {
       case GET_USER_INFO: {
          return {

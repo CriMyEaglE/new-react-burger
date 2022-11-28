@@ -1,6 +1,6 @@
 import styles from './order-details.module.css';
 import accept from '../../images/done.png';
-import { useSelector } from '../utils/hooks';
+import { useSelector } from '../../utils/hooks';
 import { FC } from 'react';
 
 type TOrderDetailsOnClick = {

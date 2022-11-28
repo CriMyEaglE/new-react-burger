@@ -1,6 +1,6 @@
 import { Route, Redirect, useLocation, RouteProps } from "react-router-dom";
 import React, { FC } from 'react';
-import { getCookie } from '../../components/utils/coockie'
+import { getCookie } from '../../utils/coockie'
 
 type TProtectedRoute = RouteProps & { children?: React.ReactNode }
 

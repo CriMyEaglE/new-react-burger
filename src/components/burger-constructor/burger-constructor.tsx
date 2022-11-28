@@ -5,8 +5,8 @@ import { getConstructorBun, getConstructorItem, moveConstructorItem, deleteConst
 import { v4 as uuidv4 } from 'uuid';
 import BurgerItem from "../burger-item/burger-item";
 import styles from './burger-constructor.module.css';
-import { useDispatch, useSelector } from "../utils/hooks";
-import { TIngredient } from "../utils/type";
+import { useDispatch, useSelector } from "../../utils/hooks";
+import { TIngredient } from "../../utils/type";
 
 type TItem = {
    id: string,

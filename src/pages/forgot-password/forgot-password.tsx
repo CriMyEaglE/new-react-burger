@@ -4,8 +4,8 @@ import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-component
 import { Link, useHistory } from 'react-router-dom';
 import { getRestoreSuccessApi } from '../../services/actions/forgot-password';
 import { Redirect } from 'react-router-dom';
-import { getCookie } from '../../components/utils/coockie';
-import { useDispatch, useSelector } from '../../components/utils/hooks';
+import { getCookie } from '../../utils/coockie';
+import { useDispatch, useSelector } from '../../utils/hooks';
 
 function ForgotPassword() {
   const dispatch = useDispatch();

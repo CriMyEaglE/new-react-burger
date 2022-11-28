@@ -5,7 +5,7 @@ import {
  
  } from 'redux';
  import thunk from 'redux-thunk';
- import { rootReducer } from '../../services/reducers/rootReducers';
+ import { rootReducer } from '../services/reducers/rootReducers';
  
  
  declare global {

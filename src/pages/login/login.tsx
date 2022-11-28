@@ -3,8 +3,8 @@ import { useEffect, useRef, FC, FormEventHandler } from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { loginUserApi } from '../../services/actions/login';
-import { getCookie } from '../../components/utils/coockie';
-import { useDispatch, useForm } from '../../components/utils/hooks';
+import { getCookie } from '../../utils/coockie';
+import { useDispatch, useForm } from '../../utils/hooks';
 
 const Login: FC = () => {
    const { values, setValues } = useForm({ email: '', password: '' });

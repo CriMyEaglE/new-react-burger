@@ -1,5 +1,5 @@
-import { REGISTRATION_USER, TPayload, TUser } from "../actions/registration";
-import { TBunch } from "../actions/rootActions";
+import { REGISTRATION_USER, TUser } from "../actions/registration";
+import { TApplicationActions } from "../actions/rootActions";
 
 type TInitialState = {
    success: boolean,
@@ -15,7 +15,7 @@ const initialState = {
    }
 };
 
-export const registrationUserReducer = (state = initialState, action: TBunch): TInitialState => {
+export const registrationUserReducer = (state = initialState, action: TApplicationActions): TInitialState => {
    switch (action.type) {
       case REGISTRATION_USER: {
          return {

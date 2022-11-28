@@ -1,10 +1,10 @@
-import { request } from "../../components/utils/api";
-import { BASE_URL } from "../../components/utils/constants";
-import { getCookie, setCookie } from "../../components/utils/coockie";
-import { TApi, TDispatch } from "../../components/utils/type";
+import { request } from "../../utils/api";
+import { BASE_URL } from "../../utils/constants";
+import { getCookie, setCookie } from "../../utils/coockie";
+import { TApi, TDispatch } from "../../utils/type";
 
-export const LOGIN_USER = 'LOGIN_USER';
-export const LOGOUT_USER = 'LOGOUT_USER';
+export const LOGIN_USER: 'LOGIN_USER' = 'LOGIN_USER';
+export const LOGOUT_USER: 'LOGOUT_USER' = 'LOGOUT_USER';
 
 export interface ILoginUser {
    readonly type: typeof LOGIN_USER,
@@ -16,7 +16,7 @@ export interface ILogoutUser {
    readonly payload: boolean
 }
 
-export type TLogin =
+export type TLoginActions =
    | ILoginUser
    | ILogoutUser
 

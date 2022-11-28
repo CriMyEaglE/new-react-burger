@@ -3,8 +3,8 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './bruger-ingredients.module.css';
 import Ingredients from '../ingredients/ingredients';
 import { getIngredients } from '../../services/actions/ingredients-api';
-import { useDispatch, useSelector } from '../utils/hooks';
-import { TIngredient } from '../utils/type';
+import { useDispatch, useSelector } from '../../utils/hooks';
+import { TIngredient } from '../../utils/type';
 
 type TBurgerIngredients = {
    onClick: (item: TIngredient) => void

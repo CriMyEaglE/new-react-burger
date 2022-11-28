@@ -1,20 +1,20 @@
-import { TBurgerConstructor } from "./burger-constructor";
-import { TForgotPassword } from "./forgot-password";
-import { TIngredientDetails } from "./ingredient-details";
-import { TIngredients } from "./ingredients-api";
-import { TLogin } from "./login";
-import { TOrder } from "./order-details";
-import { TProfile } from "./profile";
-import { TRegistrationUser } from "./registration";
-import { TResetPassword } from "./reset-password";
+import { TBurgerConstructorActions } from "./burger-constructor";
+import { TForgotPasswordActions } from "./forgot-password";
+import { TIngredientDetailsActions } from "./ingredient-details";
+import { TIngredientsActions } from "./ingredients-api";
+import { TLoginActions } from "./login";
+import { TOrderActions } from "./order-details";
+import { TProfileActions } from "./profile";
+import { TRegistrationUserActions } from "./registration";
+import { TResetPasswordActions } from "./reset-password";
 
-export type TBunch =
-   | TBurgerConstructor
-   | TIngredientDetails
-   | TIngredients
-   | TOrder
-   | TForgotPassword
-   | TLogin
-   | TProfile
-   | TRegistrationUser
-   | TResetPassword
+export type TApplicationActions =
+   | TBurgerConstructorActions
+   | TIngredientDetailsActions
+   | TIngredientsActions
+   | TOrderActions
+   | TForgotPasswordActions
+   | TLoginActions
+   | TProfileActions
+   | TRegistrationUserActions
+   | TResetPasswordActions
