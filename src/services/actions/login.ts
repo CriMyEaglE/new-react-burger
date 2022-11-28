@@ -54,7 +54,7 @@ export const loginUserApi: TApi = (userData: TUserData) => {
                dispatch(loginUser(success));
                setCookie('access', accessToken.split('Bearer ')[1]);
                setCookie('refresh', refreshToken);
-               document.location.reload();
+               // document.location.reload();
             }
          })
          .catch(console.warn)

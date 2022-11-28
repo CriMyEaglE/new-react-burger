@@ -17,12 +17,10 @@ type TItem = {
 const BurgerConstructor: FC = () => {
    const dispatch = useDispatch();
    const store = useSelector(store => store.constructorList.constructorList);
-   console.log(store)
 
    const [{ isOver }, drop] = useDrop(() => ({
       accept: 'ingredient',
       drop: (item: TIngredient) => {
-         console.log(item)
          addConstructorItem(item)
       },
       collect: (monitor) => ({
@@ -32,7 +30,6 @@ const BurgerConstructor: FC = () => {
 
    const addConstructorItem = (item: TIngredient) => {
       item = { ...item, id: uuidv4() }
-      console.log(item)
       dispatch(getConstructorItem(item))
       dispatch(getConstructorBun(item))
    }

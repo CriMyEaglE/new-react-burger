@@ -1,7 +1,7 @@
 import styles from './login.module.css';
-import { useEffect, useRef, useState, FC, FormEventHandler } from 'react';
+import { useEffect, useRef, FC, FormEventHandler } from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { loginUserApi } from '../../services/actions/login';
 import { getCookie } from '../../components/utils/coockie';
 import { useDispatch, useForm } from '../../components/utils/hooks';
@@ -22,8 +22,7 @@ const Login: FC = () => {
       if (login) {
          history.push('/')
       }
-   }, [login, history])
-
+   }, [login, history, dispatch])
    return (
       <div className={styles.container}>
          <form className={styles.container} onSubmit={handleLogin}>

@@ -24,6 +24,7 @@ import NotFound from '../../pages/not-found/not-found';
 import { ProtectedRoute } from '../../pages/protected-route/protected-route';
 import { useDispatch, useSelector } from '../utils/hooks';
 import { TIngredient } from '../utils/type';
+import { getCookie } from '../utils/coockie';
 
 type TLocation = ReturnType<typeof useLocation>;
 type TUseLocation = {
@@ -31,16 +32,17 @@ type TUseLocation = {
 };
 
 const App: FC = () => {
+  const login = !!getCookie('access');
   const [isOpen, setOpen] = useState(false);
-  const [element, setElement] = useState<TIngredient>();
   const dispatch = useDispatch();
   const store = useSelector(state => state.constructorList.constructorList);
   const location = useLocation<TUseLocation>();
   const background = location.state && location.state.background;
   const history = useHistory();
   const { _id } = useSelector(state => state.ingredientDetails.ingredientDetails);
-
+  const [disabled, setDisabled] = useState(true);
   const id = useMemo(() => {
+    store.length > 0 ? setDisabled(false) : setDisabled(true);
     return store.map(element => element._id)
   }, [store])
 
@@ -65,8 +67,12 @@ const App: FC = () => {
   }
 
   const openOrderDetails = () => {
-    getOrderRequest();
-    setOpen(!isOpen);
+    if (login) {
+      getOrderRequest();
+      setOpen(!isOpen);
+    } else {
+      history.push('/login');
+    }
   }
 
   const getOrderRequest = () => {
@@ -93,9 +99,9 @@ const App: FC = () => {
           <ProtectedRoute path='/profile' exact={true}>
             <Profile />
           </ProtectedRoute>
-          <Route path='/reset-password' exact={true}>
+          <ProtectedRoute path='/reset-password' exact={true}>
             <ResetPassword />
-          </Route>
+          </ProtectedRoute>
           <Route path='/' exact={true}>
             <main>
               <div className={styles.app_container}>
@@ -104,7 +110,7 @@ const App: FC = () => {
                   <BurgerConstructor />
                   <div className={styles.order_button_container}>
                     <Price />
-                    <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'}>Оформить заказ</Button>
+                    <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'} disabled={disabled}>Оформить заказ</Button>
                   </div>
                 </div>
               </div>
