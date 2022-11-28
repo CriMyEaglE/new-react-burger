@@ -1,6 +1,6 @@
 import { Logo, BurgerIcon, ListIcon, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './app-header.module.css';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FC } from 'react';
 
 const AppHeader: FC = () => {
@@ -16,9 +16,9 @@ const AppHeader: FC = () => {
 
             </NavLink>
          </nav>
-         <div className={styles.logo} >
+         <Link to='/' className={styles.logo}>
             <Logo />
-         </div>
+         </Link>
          <NavLink to='/profile'>
             <div className={`text text_type_main-default text_color_inactive ml-5 mr-5`}><ProfileIcon type="secondary" /><span className={'ml-2'}>Личный кабинет</span></div>
          </NavLink>
