@@ -7,7 +7,7 @@ import {
 import { TApplicationActions } from '../actions/rootActions';
 
 type TInitialState = {
-   ingredients: [] | Array<TIngredient>,
+   ingredients: Array<TIngredient>,
    ingredientsRequest: boolean,
    ingredientsFailed: boolean
 }

@@ -1,7 +1,7 @@
 import AppHeader from '../app-header/app-header';
 import appStyles from './app.module.css';
 import BurgerIngredients from '../burger-ingredients/bruger-ingredients';
-import { useState, useMemo, FC, useCallback } from 'react';
+import { useState, useMemo, FC, useCallback, useEffect } from 'react';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { getIngredientDetails, removeIngredientDetails } from '../../services/actions/ingredient-details';
@@ -25,6 +25,8 @@ import { ProtectedRoute } from '../../pages/protected-route/protected-route';
 import { useDispatch, useSelector } from '../../utils/hooks';
 import { TIngredient } from '../../utils/type';
 import { getCookie } from '../../utils/coockie';
+import Feed from '../../pages/feed/feed';
+import { getIngredients } from '../../services/actions/ingredients-api';
 
 type TLocation = ReturnType<typeof useLocation>;
 type TUseLocation = {
@@ -46,6 +48,9 @@ const App: FC = () => {
     return store.map(element => element._id)
   }, [store])
 
+  useEffect(() => {
+    dispatch(getIngredients());
+  })
   const openIngredientDetails = useCallback((element: TIngredient): void => {
     const { _id } = element;
     const url = `/ingredients/:${_id}`;
@@ -102,6 +107,9 @@ const App: FC = () => {
           <ProtectedRoute path='/reset-password' exact={true}>
             <ResetPassword />
           </ProtectedRoute>
+          <Route path='/feed' exact={true}>
+            <Feed />
+          </Route>
           <Route path='/' exact={true}>
             <main>
               <div className={styles.app_container}>
