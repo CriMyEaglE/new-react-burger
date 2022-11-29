@@ -8,6 +8,7 @@ import { orderDetailsReducer } from './order-details';
 import { getUserProfileReducer } from './profile';
 import { registrationUserReducer } from './registration';
 import { resetPasswordReducer } from './reset-password';
+import { webSocketReduser } from './websocket';
 export const rootReducer = combineReducers({
    ingredients: ingredientsReducer,
    ingredientDetails: ingredtientDetailsReducer,
@@ -17,5 +18,6 @@ export const rootReducer = combineReducers({
    resetPassword: resetPasswordReducer,
    registrationUser: registrationUserReducer,
    loginUser: loginUserReducer,
-   userProfile: getUserProfileReducer
+   userProfile: getUserProfileReducer,
+   webSocket: webSocketReduser
 });

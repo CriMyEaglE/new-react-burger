@@ -1,17 +1,27 @@
 import { FC, useEffect, useState, useMemo } from 'react';
-import { useSelector } from '../../utils/hooks';
-import { TIngredient } from '../../utils/type';
+import { useDispatch, useSelector } from '../../utils/hooks';
+import { TIngredient, TOrder } from '../../utils/type';
 import styles from './feed.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { wsConnectionClosed, wsConnectionOpened } from '../../services/actions/websocket';
+import { useLocation } from 'react-router-dom';
 
 interface IIngredients {
    ingredients: TIngredient[]
 }
 
-
-const ws = new WebSocket('wss://norma.nomoreparties.space/orders/all');
 const Feed: FC = () => {
+   const location = useLocation();
+   const dispatch = useDispatch();
+   useEffect(() => {
+      dispatch(wsConnectionOpened());
+   }, []);
+
+   useEffect(() => {
+      if (location.pathname !== '/feed')
+         dispatch(wsConnectionClosed())
+   }, [location, dispatch])
    return (
       <div className={styles.feed}>
          <h1 className={styles.feed__title}>Лента заказов</h1>
@@ -27,21 +37,8 @@ const Feed: FC = () => {
    )
 };
 
-type TData = {
-   success: boolean,
-   orders: TOrder[],
-   total: number,
-   totalToday: number
-}
-
 const StatusBoard: FC = () => {
-   const [data, setData] = useState<TData>();
-   useEffect(() => {
-      ws.addEventListener('message', (e) => {
-         setData(JSON.parse(e.data));
-      })
-   }, [])
-   console.log(data)
+   const { orders, total, totalToday } = useSelector(state => state.webSocket);
    return (
       <div className={styles.board__list}>
          <div className={styles.board__two_column}>
@@ -49,13 +46,13 @@ const StatusBoard: FC = () => {
                <h1 className={`${styles.board__title} text text_type_main-medium`}>Готовы:</h1>
                <div className={styles.container}>
                   <ul className={styles.order_done}>
-                     {data?.orders.map((item, index) => { if (item.status === 'done' && index < 5) { return <li key={index} className={`${styles.order_done_number} text text_type_digits-default`}>{item.number}</li> } })}
+                     {orders.map((item, index) => { if (item.status === 'done' && index < 5) { return <li key={index} className={`${styles.order_done_number} text text_type_digits-default`}>{item.number}</li> } })}
                   </ul>
                   <ul className={styles.order_done}>
-                     {data?.orders.map((item, index) => { if (item.status === 'done' && index > 5 && index < 11) { return <li key={index} className={`${styles.order_done_number} text text_type_digits-default`}>{item.number}</li> } })}
+                     {orders.map((item, index) => { if (item.status === 'done' && index > 5 && index < 11) { return <li key={index} className={`${styles.order_done_number} text text_type_digits-default`}>{item.number}</li> } })}
                   </ul>
                   <ul className={styles.order_done}>
-                     {data?.orders.map((item, index) => { if (item.status === 'done' && index > 10 && index < 16) { return <li key={index} className={`${styles.order_done_number} text text_type_digits-default`}>{item.number}</li> } })}
+                     {orders.map((item, index) => { if (item.status === 'done' && index > 10 && index < 16) { return <li key={index} className={`${styles.order_done_number} text text_type_digits-default`}>{item.number}</li> } })}
                   </ul>
                </div>
 
@@ -64,48 +61,34 @@ const StatusBoard: FC = () => {
                <h1 className={`${styles.board__title} text text_type_main-medium`}>В работе:</h1>
                <div className={styles.container}>
                   <ul className={styles.order_pending}>
-                     {data?.orders.map((item, index) => { if (item.status === 'pending' && index < 5) { return <li key={index} className={`${styles.order_pending_number} text text_type_digits-default`}>{item.number}</li> } })}
+                     {orders.map((item, index) => { if (item.status === 'pending' && index < 5) { return <li key={index} className={`${styles.order_pending_number} text text_type_digits-default`}>{item.number}</li> } })}
                   </ul>
                   <ul className={styles.order_pending}>
-                     {data?.orders.map((item, index) => { if (item.status === 'pending' && index > 5 && index < 11) { return <li key={index} className={`${styles.order_pending_number} text text_type_digits-default`}>{item.number}</li> } })}
+                     {orders.map((item, index) => { if (item.status === 'pending' && index > 5 && index < 11) { return <li key={index} className={`${styles.order_pending_number} text text_type_digits-default`}>{item.number}</li> } })}
                   </ul>
                   <ul className={styles.order_pending}>
-                     {data?.orders.map((item, index) => { if (item.status === 'pending' && index > 10 && index < 16) { return <li key={index} className={`${styles.order_pending_number} text text_type_digits-default`}>{item.number}</li> } })}
+                     {orders.map((item, index) => { if (item.status === 'pending' && index > 10 && index < 16) { return <li key={index} className={`${styles.order_pending_number} text text_type_digits-default`}>{item.number}</li> } })}
                   </ul>
                </div>
             </div>
          </div>
          <div>
             <h2 className='text text_type_main-medium mt-15'>Выполнено за все время:</h2>
-            <p className={`${styles.order__total} text text_type_digits-large`}>{data?.total}</p>
+            <p className={`${styles.order__total} text text_type_digits-large`}>{total}</p>
          </div>
          <div>
             <h3 className='text text_type_main-medium mt-15'>Выполнено за сегодня:</h3>
-            <p className={`${styles.order__total} text text_type_digits-large`}>{data?.totalToday}</p>
+            <p className={`${styles.order__total} text text_type_digits-large`}>{totalToday}</p>
          </div>
       </div>
    )
 };
-type TOrder = {
-   createdAt: string,
-   ingredients: string[],
-   name: string,
-   number: number,
-   status: string,
-   updateAt: string,
-   _id: string
-};
 const Orders: FC = () => {
-   const [orders, setOrders] = useState<TOrder[]>([]);
-   useEffect(() => {
-      ws.addEventListener('message', (e) => {
-         setOrders(JSON.parse(e.data).orders);
-      })
-   }, [])
+   const { orders: orders } = useSelector(state => state.webSocket);
    return (
       <>
          {
-            orders.map((order, index) => <Order key={index} order={order} />)
+            orders.map((order) => <Order key={uuidv4()} order={order} />)
          }
       </>
    )
@@ -138,7 +121,6 @@ const Order: FC<{ order: TOrder }> = ({ order }) => {
       });
       return price;
    }, [order])
-   console.log(order.ingredients.length)
    return (
       <div className={styles.order}>
          <div className={`${styles.order__title}`}>
@@ -151,9 +133,9 @@ const Order: FC<{ order: TOrder }> = ({ order }) => {
             <div className={styles.order__images_container}>
                {order.ingredients.map((item, index) => {
                   if (index < 6)
-                     return <div style={{ position: 'absolute', left: `${index * 44}px` }} ><Image key={index} id={item} /></div>
+                     return <div key={index} style={{ position: 'absolute', left: `${index * 44}px` }} ><Image id={item} /></div>
                   if (index >= 6)
-                     return <div style={{ position: 'absolute', left: `${index - 4 * 44}px` }} ><Image key={index} id={item} /></div>
+                     return <div key={index} style={{ position: 'absolute', left: `${index - 4 * 44}px` }} ><Image id={item} /></div>
                })}
                {order.ingredients.length > 6 ? <p className={`${styles.order__count} text text_type_digits-small`} style={{ zIndex: order.ingredients.length }}>+{order.ingredients.length - 6}</p> : null}
             </div>
