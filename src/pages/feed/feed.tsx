@@ -4,7 +4,7 @@ import { TIngredient, TOrder } from '../../utils/type';
 import styles from './feed.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { wsConnectionClosed, wsConnectionOpened } from '../../services/actions/websocket';
+import { wsConnectionClosed, wsConnectionOpened } from '../../services/actions/websocket-all-orders';
 import { useHistory, useLocation } from 'react-router-dom';
 
 interface IIngredients {
@@ -38,7 +38,7 @@ const Feed: FC = () => {
 };
 
 const StatusBoard: FC = () => {
-   const { orders, total, totalToday } = useSelector(state => state.webSocket);
+   const { orders, total, totalToday } = useSelector(state => state.webSocketAllOrders);
    return (
       <div className={styles.board__list}>
          <div className={styles.board__two_column}>
@@ -84,7 +84,7 @@ const StatusBoard: FC = () => {
    )
 };
 const Orders: FC = () => {
-   const { orders: orders } = useSelector(state => state.webSocket);
+   const { orders: orders } = useSelector(state => state.webSocketAllOrders);
    return (
       <>
          {

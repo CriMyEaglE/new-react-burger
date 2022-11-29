@@ -5,7 +5,7 @@ import {
 
 } from 'redux';
 import thunk from 'redux-thunk';
-import { wsActions } from '../services/actions/websocket';
+import { wsActions } from '../services/actions/websocket-all-orders';
 import { rootReducer } from '../services/reducers/rootReducers';
 import { ordersUrl } from './constants';
 import { socketMidlleware } from './middleware';

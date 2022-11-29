@@ -1,7 +1,7 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { wsConnectionClosed, wsConnectionOpened } from '../../services/actions/websocket';
+import { wsConnectionClosed, wsConnectionOpened } from '../../services/actions/websocket-all-orders';
 import { useDispatch, useSelector } from '../../utils/hooks';
 import { TIngredient } from '../../utils/type';
 import styles from './feed-details.module.css';
@@ -17,7 +17,7 @@ export const FeedDetails: FC = () => {
       };
    }, []);
 
-   const { orders: orders } = useSelector(state => state.webSocket);
+   const { orders: orders } = useSelector(state => state.webSocketAllOrders);
    const { ingredients }: IIngredients = useSelector(state => state.ingredients);
    const params: { id: string } = useParams();
    const orderNumber = Number(params.id.split(':')[1]);

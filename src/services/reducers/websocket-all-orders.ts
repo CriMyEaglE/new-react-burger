@@ -4,7 +4,7 @@ import {
    WS_CONNECTION_CLOSED,
    WS_GET_ORDERS,
    WS_SEND_MESSAGE
- } from '../actions/websocket';
+ } from '../actions/websocket-all-orders';
  import { TApplicationActions } from '../actions/rootActions';
  import { TOrder } from '../../utils/type'
  
@@ -22,7 +22,7 @@ import {
    totalToday: null
  }
  
- export const webSocketReduser = (state = initialState, action: TApplicationActions): TInitialState => {
+ export const webSocketAllOrdersReduser = (state = initialState, action: TApplicationActions): TInitialState => {
    switch (action.type) {
      case WS_CONNECTION_SUCCESS: {
        return {
