@@ -114,6 +114,9 @@ const App: FC = () => {
           <Route path='/feed' exact={true}>
             <Feed />
           </Route>
+          <Route path={`/feed/:id`}>
+            <FeedDetails />
+          </Route>
           <Route path='/' exact={true}>
             <main>
               <div className={styles.app_container}>

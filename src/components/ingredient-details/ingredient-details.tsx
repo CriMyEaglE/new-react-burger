@@ -2,10 +2,6 @@ import { TIngredient } from '../../utils/type';
 import styles from './ingredient-details.module.css';
 import { FC } from 'react';
 
-// type TIngredientDetails = {
-//    item: TIngredient
-// }
-
 const IngredientDetails: FC = () => {
    const item: TIngredient = JSON.parse(localStorage
       .getItem('ingredient') as string);
