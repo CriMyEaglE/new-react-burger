@@ -27,6 +27,7 @@ import { TIngredient } from '../../utils/type';
 import { getCookie } from '../../utils/coockie';
 import Feed from '../../pages/feed/feed';
 import { getIngredients } from '../../services/actions/ingredients-api';
+import FeedDetails from '../../pages/feed-details/feed-details';
 
 type TLocation = ReturnType<typeof useLocation>;
 type TUseLocation = {
@@ -68,7 +69,10 @@ const App: FC = () => {
   const closeModal = () => {
     setOpen(false);
     dispatch(removeIngredientDetails());
-    history.replace('/');
+    history.push({
+      ...location.state.background as TLocation | TUseLocation,
+      state: { background: null },
+    });
   }
 
   const openOrderDetails = () => {
@@ -128,6 +132,13 @@ const App: FC = () => {
             <NotFound />
           </Route>
         </Switch>
+        {background &&
+          <Route path={`/feed/:id`}>
+            <Modal onClose={closeModal} >
+              <FeedDetails />
+            </Modal>
+          </Route>
+        }
         {background &&
           <Route path={`/ingredients/:${_id}`}>
             (

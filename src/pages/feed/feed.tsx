@@ -5,7 +5,7 @@ import styles from './feed.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { wsConnectionClosed, wsConnectionOpened } from '../../services/actions/websocket';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 interface IIngredients {
    ingredients: TIngredient[]
@@ -106,6 +106,19 @@ const Image: FC<{ id: string }> = ({ id }) => {
 }
 
 const Order: FC<{ order: TOrder }> = ({ order }) => {
+   const location = useLocation();
+   const history = useHistory();
+   const openOrderDetails = () => {
+      const { number } = order;
+      const url = `/feed/:${number}`;
+      history.push({
+         pathname: url,
+         state: {
+            background: location,
+            order: order
+         }
+      })
+   }
    let price = 0;
    const { ingredients }: IIngredients = useSelector(state => state.ingredients);
    const totalPrice = useMemo(() => {
@@ -122,7 +135,7 @@ const Order: FC<{ order: TOrder }> = ({ order }) => {
       return price;
    }, [order])
    return (
-      <div className={styles.order}>
+      <div className={styles.order} onClick={openOrderDetails}>
          <div className={`${styles.order__title}`}>
             <h1 className={`text text_type_digits-default`}>#{order.number}</h1>
             <p className={`${styles.order__title_createdAt} text text_type_digits-default text_color_inactive`}>{order.createdAt.slice(5, 10)}, {order.createdAt.slice(11, 16)} i-GMT+3</p>
