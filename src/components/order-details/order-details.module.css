@@ -1,0 +1,19 @@
+.container {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   text-align: center;
+}
+
+.image {
+   position: initial;
+   display: block;
+   max-width: 120px;
+   max-height: 120px;
+   align-self: center;
+}
+
+.image:hover {
+   cursor: pointer;
+   opacity: .5;
+}

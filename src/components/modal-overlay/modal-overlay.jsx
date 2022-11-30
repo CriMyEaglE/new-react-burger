@@ -1,10 +1,8 @@
-import { useEffect, useMemo } from 'react'
-import { createPortal } from 'react-dom';
-import ingredientDetailsStyles from './ingredient-details.module.css';
+import { useEffect } from 'react'
+import PropTypes from 'prop-types';
+import styles from './modal-overlay.module.css';
 
 function ModalOverlay({ onClose, children }) {
-   const element = useMemo(() => document.getElementById("modal"), []);
-
    const closeModalByEsc = ((e) => {
       if (e.key === 'Escape') {
          onClose()
@@ -25,11 +23,16 @@ function ModalOverlay({ onClose, children }) {
       }
    }, []);
 
-   return createPortal(
-      <div className={ingredientDetailsStyles.modalBackground} id={'modalOverlay'}>
-         <div className={ingredientDetailsStyles.modalCard}>
-            {children}
-         </div>
-      </div>, element);
+   return (
+      <div className={styles.overlay} id={'modalOverlay'}>
+         {children}
+      </div>
+   );
 }
+
+ModalOverlay.propTypes = {
+   onClose: PropTypes.func.isRequired,
+   children: PropTypes.element.isRequired
+}
+
 export default ModalOverlay;

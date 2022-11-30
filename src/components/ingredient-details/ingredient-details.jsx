@@ -1,30 +1,48 @@
-import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import styles from './ingredient-details.module.css';
+import { ingredientType } from '../utils/prop-types';
+import PropTypes from 'prop-types';
 
-function IngredientDetails(props) {
+function IngredientDetails({ item }) {
    return (
       <div>
-         <div>
-            <h3>Детали игредиента</h3>
-            <CloseIcon onClick={props.onClick} />
+         <h3 className={`${styles.title} text text_type_main-large`}>Детали игредиента</h3>
+         <div className={styles.container}>
+            <img className={styles.image} src={item.image} alt={item.name} />
+            <h3 className={`${styles.subtitle} text text_type_main-large`}>{item.name}</h3>
+            <div className={styles.table}>
+               <p className="text text_type_main-small text_color_inactive">
+                  Калории,ккал
+               </p>
+               <p className="text text_type_main-small text_color_inactive">
+                  Белки, г
+               </p>
+               <p className="text text_type_main-small text_color_inactive">
+                  Жиры, г
+               </p>
+               <p className="text text_type_main-small text_color_inactive">
+                  Углеводы, г
+               </p>
+               <p className="text text_type_digits-default text_color_inactive">
+                  {item.calories}
+               </p>
+               <p className="text text_type_digits-default text_color_inactive">
+                  {item.proteins}
+               </p>
+               <p className="text text_type_digits-default text_color_inactive">
+                  {item.fat}
+               </p>
+               <p className="text text_type_digits-default text_color_inactive">
+                  {item.carbohydrates}
+               </p>
+            </div>
          </div>
-         <img src={props.image} />
-         <table>
-            <caption>{props.name}</caption>
-            <tr>
-               <th>Калории, ккал</th>
-               <th>Белки, г</th>
-               <th>Жиры, г</th>
-               <th>Глеводы, г</th>
-            </tr>
-            <tr>
-               <td>{props.calories}</td>
-               <td>{props.proteins}</td>
-               <td>{props.fat}</td>
-               <td>{props.carbohydrates}</td>
-            </tr>
-         </table>
+
       </div>
    )
+}
+
+IngredientDetails.propTypes = {
+   item: ingredientType.isRequired
 }
 
 export default IngredientDetails;

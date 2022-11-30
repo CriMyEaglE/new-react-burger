@@ -2,4 +2,23 @@ button {
    background-color: transparent;
    color: white;
    border: none;
+   position: relative;
+   margin: 30px 0 30px 0;
+}
+
+.price {
+   display: flex;
+   justify-content: center;
+}
+
+.name {
+   display: flex;
+   max-width: 240px;
+   justify-content: center;
+}
+
+.counter {
+   position: absolute;
+   top: 24px;
+   left: 289px;
 }
