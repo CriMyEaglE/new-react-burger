@@ -15,12 +15,10 @@ const Feed: FC = () => {
    const dispatch = useDispatch();
    useEffect(() => {
       dispatch(wsConnectionOpened());
+      return () => {
+         dispatch(wsConnectionClosed());
+      };
    }, []);
-
-   useEffect(() => {
-      if (location.pathname !== '/feed')
-         dispatch(wsConnectionClosed())
-   }, [location, dispatch])
 
    const { orders: orders } = useSelector(state => state.webSocketAllOrders);
    return (
@@ -28,7 +26,7 @@ const Feed: FC = () => {
          <h1 className={styles.feed__title}>Лента заказов</h1>
          <div className={styles.two_column}>
             <section className={`${styles.scroll} mr-15`}>
-               {orders.map((order) => <OrderCard key={uuidv4()} order={order} />)}
+               {orders.map((order) => <OrderCard key={order.number} order={order} />)}
             </section>
             <section>
                <StatusBoard />

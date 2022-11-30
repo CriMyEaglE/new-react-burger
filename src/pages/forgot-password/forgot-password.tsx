@@ -11,13 +11,13 @@ function ForgotPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
   const success = useSelector(state => state.restorePassword.success);
-  const login: boolean = !!getCookie('access');
+  const login: boolean = useSelector(state => state.loginUser.login);
   const [email, setEmail] = useState('');
   const inputRef = useRef(null)
 
-
   const restorePassword: FormEventHandler = useCallback((e) => {
     e.preventDefault();
+    console.log(e.target)
     dispatch(getRestoreSuccessApi());
     success ? history.push('/reset-password') : history.push('/forgot-password')
   }, [dispatch, success, history])

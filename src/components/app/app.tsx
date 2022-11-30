@@ -44,7 +44,6 @@ const App: FC = () => {
   const location = useLocation<TUseLocation>();
   const background = location.state && location.state.background;
   const history = useHistory();
-  const { _id } = useSelector(state => state.ingredientDetails.ingredientDetails);
   const [disabled, setDisabled] = useState(true);
   const id = useMemo(() => {
     store.length > 0 ? setDisabled(false) : setDisabled(true);
@@ -95,7 +94,7 @@ const App: FC = () => {
       <div className={appStyles.app}>
         <AppHeader />
         <Switch location={background as TLocation || location}>
-          <Route path={`/ingredients/:id`}>
+          <Route path='/ingredients/:id'>
             <Ingredient />
           </Route>
           <Route path='/forgot-password' exact={true}>
@@ -113,7 +112,7 @@ const App: FC = () => {
           <ProtectedRoute path='/profile/orders' exact={true}>
             <ProfileOrders />
           </ProtectedRoute>
-          <ProtectedRoute path={`/profile/orders/:id`} exact={true}>
+          <ProtectedRoute path='/profile/orders/:id' exact={true}>
             <ProfileOrdersDetails />
           </ProtectedRoute>
           <ProtectedRoute path='/reset-password' exact={true}>
@@ -163,7 +162,8 @@ const App: FC = () => {
             <Modal onClose={closeModal} >
               <ProfileOrdersDetails />
             </Modal>
-            )</Route>}
+            )
+          </Route>}
         {isOpen && <Modal onClose={closeModal} >
           <OrderDetails onClick={closeModal} />
         </Modal>}

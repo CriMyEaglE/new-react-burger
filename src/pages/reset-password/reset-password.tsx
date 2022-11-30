@@ -1,32 +1,34 @@
 import styles from './reset-password.module.css';
-import { FC, FormEventHandler, useRef, useState } from 'react';
+import { FC, FormEventHandler, useRef } from 'react';
 import { Input, Button, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
 import { getResetSuccessApi } from '../../services/actions/reset-password';
-import { getCookie } from '../../utils/coockie';
-import { useForm, useSelector } from '../../utils/hooks';
+import { useDispatch, useForm, useSelector } from '../../utils/hooks';
 
 const ResetPassword: FC = () => {
-   const login: boolean = !!getCookie('access');
+   const login: boolean = useSelector(state => state.loginUser.login);
    const reseted = useSelector(state => state.resetPassword.success);
-   const [value, setValue] = useState('');
    const inputRef = useRef<HTMLInputElement>(null);
-   const resetPassword: FormEventHandler = (e) => {
-      e.preventDefault();
-      getResetSuccessApi()
-   }
+   const dispatch = useDispatch();
+
+   console.log(login, 'login', reseted, 'reseted')
 
    const { values, setValues } = useForm({
-      code: '',
-      password: ''
+      password: '',
+      token: ''
    });
+
+   const resetPassword: FormEventHandler = (e) => {
+      e.preventDefault();
+      dispatch(getResetSuccessApi());
+   }
 
    if (login) {
       return (<Redirect to={'/profile'} />)
    }
 
    if (reseted) {
-      return (<Redirect to={'/forgot-password'} />)
+      return (<Redirect to={'/'} />)
    }
 
    return (
@@ -36,12 +38,12 @@ const ResetPassword: FC = () => {
             <PasswordInput
                onChange={e => setValues({ ...values, password: e.target.value })}
                placeholder={'Введите новый пароль'}
-               value='' />
+               value={values.password} />
          </div>
          <div className='mt-6 mb-6'>
             <Input type='text' placeholder={'Введите код из письма'}
-               onChange={e => setValues({ ...values, code: e.target.value })}
-               value={value}
+               onChange={e => setValues({ ...values, token: e.target.value })}
+               value={values.token}
                name={'name'}
                error={false}
                ref={inputRef}

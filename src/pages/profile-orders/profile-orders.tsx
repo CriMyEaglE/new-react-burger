@@ -1,5 +1,5 @@
 import { FC, useEffect, useCallback } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useHistory, useLocation } from 'react-router-dom';
 import { wsProfileConnectionClosed, wsProfileConnectionOpened } from '../../services/actions/websocket-profile-orders';
 import { getCookie, setCookie } from '../../utils/coockie';
 import { useDispatch, useSelector } from '../../utils/hooks';
@@ -10,8 +10,9 @@ import { logoutUserApi } from '../../services/actions/login';
 
 const ProfileOrders: FC = () => {
    const { orders: orders } = useSelector(state => state.webSocketProfileOrfers);
-   const i = orders.length;
    const location = useLocation();
+   const history = useHistory();
+   console.log(history)
    const dispatch = useDispatch();
    const logoutUser = useCallback(() => {
       dispatch(logoutUserApi());
@@ -20,12 +21,10 @@ const ProfileOrders: FC = () => {
    useEffect(() => {
       const token = getCookie('access');
       dispatch(wsProfileConnectionOpened(token));
-   }, [])
-   useEffect(() => {
-      if (location.pathname !== '/profile/orders')
-         dispatch(wsProfileConnectionClosed())
-   }, [location, dispatch])
-   console.log(orders)
+      return () => {
+         dispatch(wsProfileConnectionClosed());
+      }
+   }, [dispatch]);
    return (
       <div className={styles.container}>
          <nav className={`${styles.nav} mr-15`}>

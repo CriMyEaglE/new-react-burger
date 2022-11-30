@@ -1,3 +1,4 @@
+import { getCookie } from "../../utils/coockie";
 import { LOGIN_USER, LOGOUT_USER } from "../actions/login";
 import { TApplicationActions } from "../actions/rootActions";
 
@@ -6,7 +7,7 @@ type TInitialState = {
    logout: boolean
 }
 const initialState = {
-   login: false,
+   login: !!getCookie('access') ? true : false,
    logout: false
 };
 
@@ -15,7 +16,7 @@ export const loginUserReducer = (state = initialState, action: TApplicationActio
       case LOGOUT_USER: {
          return {
             ...state,
-            login: !action.payload,
+            login: false,
             logout: action.payload
          }
       }

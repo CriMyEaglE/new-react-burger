@@ -1,7 +1,9 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useLocation, useParams } from 'react-router-dom';
 import { wsConnectionClosed, wsConnectionOpened } from '../../services/actions/websocket-all-orders';
+import { wsProfileConnectionClosed, wsProfileConnectionOpened } from '../../services/actions/websocket-profile-orders';
+import { getCookie } from '../../utils/coockie';
 import { useDispatch, useSelector } from '../../utils/hooks';
 import { TIngredient } from '../../utils/type';
 import styles from './profile-orders-details.module.css';
@@ -9,21 +11,16 @@ interface IIngredients {
    ingredients: TIngredient[]
 }
 export const ProfileOrdersDetails: FC = () => {
+   const login: boolean = useSelector(state => state.loginUser.login);
    const dispatch = useDispatch();
-   useEffect(() => {
-      dispatch(wsConnectionOpened());
-      return () => {
-         dispatch(wsConnectionClosed())
-      };
-   }, []);
-
+   const location = useLocation();
    const { orders: orders } = useSelector(state => state.webSocketProfileOrfers);
    const { ingredients }: IIngredients = useSelector(state => state.ingredients);
-   const params: { id: string } = useParams();
-   const orderNumber = Number(params.id.split(':')[1]);
-   console.log(orderNumber)
+   const params = useParams();
+   console.log(params)
+   console.log(login)
+   const orderNumber = Number(location.pathname.split(':')[1]);
    const order = orders.find(item => item.number === orderNumber);
-   console.log(orders)
    let price = 0;
    const totalPrice = useMemo(() => {
       order?.ingredients.forEach((id) => {
@@ -38,6 +35,23 @@ export const ProfileOrdersDetails: FC = () => {
       });
       return price;
    }, [order])
+
+   if (!login) {
+      <Redirect to={'/login'} />
+   }
+   useEffect(() => {
+      const token = getCookie('access');
+      dispatch(wsProfileConnectionOpened(token));
+      return () => {
+         dispatch(wsProfileConnectionClosed())
+      };
+   }, [dispatch]);
+   useEffect(() => {
+      if (location.pathname !== `/profile/orders/:${orderNumber}`)
+         dispatch(wsProfileConnectionClosed())
+   }, [location, dispatch]);
+
+
    return (
       <div className={styles.container}>
          <div className={styles.number}>

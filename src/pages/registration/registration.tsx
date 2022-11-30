@@ -8,7 +8,7 @@ import { getCookie } from '../../utils/coockie';
 
 function Registration() {
    const success = useSelector(state => state.registrationUser.success);
-   const login: boolean = !!getCookie('access')
+   const login: boolean = !!getCookie('access');
    const dispatch = useDispatch();
    const handleRegistration: FormEventHandler = (e) => {
       e.preventDefault();
