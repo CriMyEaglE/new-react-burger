@@ -1,6 +1,8 @@
 import { useMemo, FC } from 'react';
 import IngredientCard from '../ingredient-card/ingredient-card';
 import { TIngredient } from '../../utils/type';
+import { useParams } from 'react-router-dom';
+import { useSelector } from '../../utils/hooks';
 
 type TIngredients = {
    onClick: (item: TIngredient) => void,
@@ -20,7 +22,7 @@ const Ingredients: FC<TIngredients> = ({ onClick, type, ingredients, ingredients
             })
          );
       },
-      [ingredientsRequest, ingredients]
+      [ingredients]
    );
 
    return (

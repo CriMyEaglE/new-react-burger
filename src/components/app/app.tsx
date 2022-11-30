@@ -28,6 +28,8 @@ import { getCookie } from '../../utils/coockie';
 import Feed from '../../pages/feed/feed';
 import { getIngredients } from '../../services/actions/ingredients-api';
 import FeedDetails from '../../pages/feed-details/feed-details';
+import ProfileOrders from '../../pages/profile-orders/profile-orders';
+import ProfileOrdersDetails from '../../pages/profile-orders-details/profile-orders-details';
 
 type TLocation = ReturnType<typeof useLocation>;
 type TUseLocation = {
@@ -93,7 +95,7 @@ const App: FC = () => {
       <div className={appStyles.app}>
         <AppHeader />
         <Switch location={background as TLocation || location}>
-          <Route path={`/ingredients/:${_id}`}>
+          <Route path={`/ingredients/:id`}>
             <Ingredient />
           </Route>
           <Route path='/forgot-password' exact={true}>
@@ -107,6 +109,12 @@ const App: FC = () => {
           </Route>
           <ProtectedRoute path='/profile' exact={true}>
             <Profile />
+          </ProtectedRoute>
+          <ProtectedRoute path='/profile/orders' exact={true}>
+            <ProfileOrders />
+          </ProtectedRoute>
+          <ProtectedRoute path={`/profile/orders/:id`} exact={true}>
+            <ProfileOrdersDetails />
           </ProtectedRoute>
           <ProtectedRoute path='/reset-password' exact={true}>
             <ResetPassword />
@@ -125,7 +133,7 @@ const App: FC = () => {
                   <BurgerConstructor />
                   <div className={styles.order_button_container}>
                     <Price />
-                    <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'} disabled={disabled}>Оформить заказ</Button>
+                    <Button type='primary' size='medium' onClick={openOrderDetails} htmlType='submit' disabled={disabled}>Оформить заказ</Button>
                   </div>
                 </div>
               </div>
@@ -143,10 +151,17 @@ const App: FC = () => {
           </Route>
         }
         {background &&
-          <Route path={`/ingredients/:${_id}`}>
+          <Route path={`/ingredients/:id`}>
             (
             <Modal onClose={closeModal} >
               <IngredientDetails />
+            </Modal>
+            )</Route>}
+        {background &&
+          <Route path={`/profile/orders/:id`}>
+            (
+            <Modal onClose={closeModal} >
+              <ProfileOrdersDetails />
             </Modal>
             )</Route>}
         {isOpen && <Modal onClose={closeModal} >

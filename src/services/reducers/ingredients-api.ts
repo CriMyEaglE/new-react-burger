@@ -12,7 +12,7 @@ type TInitialState = {
    ingredientsFailed: boolean
 }
 
-const initialState = {
+const initialState: TInitialState = {
    ingredients: [],
    ingredientsRequest: false,
    ingredientsFailed: false,

@@ -21,12 +21,10 @@ export type TIngredient = {
    id: string
 };
 
-export type TStore = ReturnType<typeof store.getState>;
-
 export type TDispatch = typeof store.dispatch;
 
 export type TApi<ReturnType = void> = ActionCreator<
-   ThunkAction<ReturnType, TStore, never, TApplicationActions>
+   ThunkAction<ReturnType, RootState, never, TApplicationActions>
 >;
 
 export type RootState = ReturnType<typeof store.getState>;

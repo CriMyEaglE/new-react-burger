@@ -1,4 +1,4 @@
-import { Route, Redirect, useLocation, RouteProps } from "react-router-dom";
+import { Route, Redirect, useLocation, RouteProps, useHistory } from "react-router-dom";
 import React, { FC } from 'react';
 import { getCookie } from '../../utils/coockie'
 

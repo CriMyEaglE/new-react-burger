@@ -12,14 +12,26 @@ const OrderCard: FC<{ order: TOrder }> = ({ order }) => {
    const history = useHistory();
    const openOrderDetails = () => {
       const { number } = order;
-      const url = `/feed/:${number}`;
-      history.push({
-         pathname: url,
-         state: {
-            background: location,
-            element: order
-         }
-      })
+      if (location.pathname === '/feed') {
+         const url = `/feed/:${number}`;
+         history.push({
+            pathname: url,
+            state: {
+               background: location,
+               element: order
+            }
+         })
+      }
+      if (location.pathname === '/profile/orders') {
+         const url = `/profile/orders/:${number}`;
+         history.push({
+            pathname: url,
+            state: {
+               background: location,
+               element: order
+            }
+         })
+      }
    }
    let price = 0;
    const { ingredients }: IIngredients = useSelector(state => state.ingredients);
