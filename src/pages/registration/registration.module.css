@@ -1,0 +1,25 @@
+.title {
+  margin-top: 180px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.paragraph {
+  display: flex;
+}
+
+.link {
+  margin-left: 8px;
+  text-decoration: none;
+  color: #4C4CFF;
+  transition: opacity .3s;
+}
+
+.link:hover {
+  opacity: .5;
+}

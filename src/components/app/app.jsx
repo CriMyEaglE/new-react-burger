@@ -14,18 +14,36 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderDetails from '../order-details/order-details';
 import { getOrderDetails } from '../../services/actions/order-details';
 import styles from './app.module.css';
+import { Route, Switch, useHistory, useLocation } from 'react-router-dom';
+import ForgotPassword from '../../pages/forgot-password/forgot-password';
+import Registration from '../../pages/registration/registration';
+import Login from '../../pages/login/login';
+import Profile from '../../pages/profile/profile';
+import ResetPassword from '../../pages/reset-password/reset-password';
+import Ingredient from '../../pages/ingredient/ingredient';
+import NotFound from '../../pages/not-found/not-found';
+import { ProtectedRoute } from '../utils/protected-route';
 
 function App() {
   const [isOpen, setOpen] = useState(false);
   const [element, setElement] = useState(null);
   const dispatch = useDispatch();
   const store = useSelector(state => state.constructorList.constructorList);
+  const location = useLocation();
+  const background = location.state && location.state.background;
+  const history = useHistory();
+  const { urlId } = useSelector(state => state.ingredientDetails.ingredientDetails);
 
   const id = useMemo(() => {
     return store.map(element => element._id)
   }, [store])
 
   const openIngredientDetails = (el) => {
+    const id = el._id;
+    const url = `/ingredients/:${id}`;
+    window.history.pushState(null, '', url);
+    sessionStorage
+      .setItem('ingredient', JSON.stringify(el));
     dispatch(getIngredientDetails(el))
     setElement(el);
     setOpen(true);
@@ -34,6 +52,7 @@ function App() {
   const closeModal = () => {
     setOpen(false);
     dispatch(removeIngredientDetails());
+    history.replace('/');
   }
 
   const openOrderDetails = () => {
@@ -47,38 +66,61 @@ function App() {
   }
 
   return (
-    <div>
+    <DndProvider backend={HTML5Backend}>
       <div className={appStyles.app}>
         <AppHeader />
-        <main>
-          <DndProvider backend={HTML5Backend}>
-            <div className={styles.app_container}>
-              <BurgerIngredients onClick={openIngredientDetails} />
-              <div className='mt-30'>
-                <BurgerConstructor />
-                <div className={`${styles.order_button_container} mt-10`}>
-                  <Price />
-                  <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'}>Оформить заказ</Button>
+        <Switch location={background || location}>
+          <Route path={`/ingredients/:${urlId}`}>
+            <Ingredient />
+          </Route>
+          <Route path='/forgot-password' exact={true}>
+            <ForgotPassword />
+          </Route>
+          <Route path='/register' exact={true}>
+            <Registration />
+          </Route>
+          <Route path='/login' exact={true}>
+            <Login />
+          </Route>
+          <ProtectedRoute path='/profile' exact={true}>
+            <Profile />
+          </ProtectedRoute>
+          <Route path='/reset-password' exact={true}>
+            <ResetPassword />
+          </Route>
+          <Route path='/' exact={true}>
+            <main>
+              <div className={styles.app_container}>
+                <BurgerIngredients onClick={openIngredientDetails} />
+                <div className={styles.constructor_container}>
+                  <BurgerConstructor />
+                  <div className={styles.order_button_container}>
+                    <Price />
+                    <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'}>Оформить заказ</Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </DndProvider>
-          {
-            isOpen
-              ?
-              <Modal onClose={closeModal} >
-                {element
-                  ?
-                  <IngredientDetails onClick={closeModal} item={element} />
-                  :
-                  <OrderDetails onClick={closeModal} />}
-              </Modal>
-              :
-              null
-          }
-        </main >
+            </main>
+          </Route>
+          <Route path='*'>
+            <NotFound />
+          </Route>
+        </Switch>
+        {
+          isOpen
+            ?
+            <Modal onClose={closeModal} >
+              {element
+                ?
+                <IngredientDetails onClick={closeModal} item={element} />
+                :
+                <OrderDetails onClick={closeModal} />}
+            </Modal>
+            :
+            null
+        }
       </div>
-    </div>
+    </DndProvider>
   );
 }
 

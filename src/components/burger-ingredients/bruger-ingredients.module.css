@@ -3,7 +3,7 @@
    flex-direction: column;
    display: flex;
    overflow-y: auto;
-   height: calc(912px - 132px);
+   height: calc(100vh - 248px);
 }
 
 .scroll::-webkit-scrollbar {
