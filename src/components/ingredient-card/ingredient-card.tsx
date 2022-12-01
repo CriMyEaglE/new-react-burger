@@ -7,10 +7,11 @@ import { useSelector } from "../../utils/hooks";
 
 type TIngredientCard = {
    item: TIngredient,
-   onClick: (item: TIngredient) => void
+   onClick: (item: TIngredient) => void,
+   className: string
 }
 
-const IngredientCard: FC<TIngredientCard> = ({ item, onClick }) => {
+const IngredientCard: FC<TIngredientCard> = ({ item, onClick, className }) => {
    const store = useSelector(store => store.constructorList.constructorList);
    const count = useMemo(() => {
       if (item.type === 'bun') {
@@ -28,7 +29,7 @@ const IngredientCard: FC<TIngredientCard> = ({ item, onClick }) => {
    }));
 
    return (
-      <button onClick={() => onClick(item)} ref={drag} style={{ border: isDragging ? '2px solid #8585AD' : 'none', borderRadius: isDragging ? '10%' : 'none' }}>
+      <button className={className} onClick={() => onClick(item)} ref={drag} style={{ border: isDragging ? '2px solid #8585AD' : 'none', borderRadius: isDragging ? '10%' : 'none' }}>
          <div className={styles.counter}>
             {count ?
                <Counter count={count} />

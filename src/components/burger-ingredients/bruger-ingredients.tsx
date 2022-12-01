@@ -37,7 +37,8 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ onClick }) => {
          mains.current
       ]
       const options = {
-         root: scroll.current
+         root: scroll.current,
+         rootMargin: '0px 0px -95% 0px'
       }
 
       const callback = (entries: IntersectionObserverEntry[]) => {

@@ -27,10 +27,11 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
+    "cypress": "cypress run",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://crimyeagle.github.io/new-react-burger",
+  "homepage": "/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -50,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@4tw/cypress-drag-drop": "^2.2.2",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.3",
     "@types/node": "^18.11.9",

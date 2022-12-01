@@ -16,10 +16,9 @@ const Ingredients: FC<TIngredients> = ({ onClick, type, ingredients, ingredients
       () => {
          return ingredientsRequest ? (
             null
-         ) : (
-            ingredients.filter(item => item.type === type).map((item) => {
-               return <IngredientCard onClick={onClick} key={item._id} item={item} />;
-            })
+         ) : (ingredients.filter(item => item.type === type).map((item) => {
+            return <IngredientCard onClick={onClick} key={item._id} item={item} className={`${type}`}/>;
+         })
          );
       },
       [ingredients]
