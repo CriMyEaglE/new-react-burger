@@ -33,7 +33,7 @@ export const orderDetailsReducer = (state = orderDetailsState, action: TApplicat
             ...state,
             orderRequest: false,
             orderFailed: false,
-            orderSuccess: false,
+            orderSuccess: true,
             id: action.payload
          }
       }

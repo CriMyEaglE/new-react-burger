@@ -71,7 +71,7 @@ const App: FC = () => {
     setOpen(false);
     dispatch(removeIngredientDetails());
     history.push({
-      ...location.state.background as TLocation | TUseLocation,
+      ...location.state as TLocation | TUseLocation,
       state: { background: null },
     });
   }
