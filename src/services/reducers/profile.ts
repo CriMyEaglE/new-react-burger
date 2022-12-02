@@ -9,7 +9,7 @@ type TInitialState = {
    }
 }
 
-const initialState = {
+export const initialState = {
    success: false,
    user: {
       email: '',

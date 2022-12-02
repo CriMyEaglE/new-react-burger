@@ -5,7 +5,7 @@ type TInitialState = {
   success: boolean
 }
 
-const initialState = {
+export const initialState = {
   success: false
 }
 

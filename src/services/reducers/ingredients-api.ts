@@ -12,7 +12,7 @@ type TInitialState = {
    ingredientsFailed: boolean
 }
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
    ingredients: [],
    ingredientsRequest: false,
    ingredientsFailed: false,

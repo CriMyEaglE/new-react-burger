@@ -2,7 +2,6 @@ import { useEffect, useState, FC, useRef, useCallback } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './bruger-ingredients.module.css';
 import Ingredients from '../ingredients/ingredients';
-import { getIngredients } from '../../services/actions/ingredients-api';
 import { useDispatch, useSelector } from '../../utils/hooks';
 import { TIngredient } from '../../utils/type';
 
@@ -13,6 +12,7 @@ type TBurgerIngredients = {
 const BurgerIngredients: FC<TBurgerIngredients> = ({ onClick }) => {
    const dispatch = useDispatch();
    const { ingredients, ingredientsRequest } = useSelector(store => store.ingredients);
+   console.log(ingredients)
 
    const buns = useRef<HTMLParagraphElement>(null);
    const mains = useRef<HTMLParagraphElement>(null);

@@ -12,7 +12,7 @@ type TInitialState = {
    orderFailed: boolean
 }
 
-const orderDetailsState: TInitialState = {
+export const orderDetailsState: TInitialState = {
    id: '',
    orderRequest: false,
    orderSuccess: false,

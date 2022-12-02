@@ -14,7 +14,7 @@ type TInitialState = {
    } | TIngredient
 }
 
-const ingredientDetailsState = {
+export const ingredientDetailsState = {
    ingredientDetails: {}
 }
 
