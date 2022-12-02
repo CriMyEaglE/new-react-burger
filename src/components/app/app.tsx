@@ -70,10 +70,7 @@ const App: FC = () => {
   const closeModal = () => {
     setOpen(false);
     dispatch(removeIngredientDetails());
-    history.push({
-      ...location.state as TLocation | TUseLocation,
-      state: { background: null },
-    });
+    history.goBack()
   }
 
   const openOrderDetails = () => {
@@ -152,7 +149,7 @@ const App: FC = () => {
         {background &&
           <Route path={`/ingredients/:id`}>
             (
-            <Modal onClose={closeModal} >
+            <Modal onClose={closeModal}>
               <IngredientDetails />
             </Modal>
             )</Route>}

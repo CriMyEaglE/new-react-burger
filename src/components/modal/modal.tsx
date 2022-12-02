@@ -9,7 +9,7 @@ type TModal = {
    children: ReactNode
 }
 
-const Modal: FC<TModal> = ({ onClose, children }) => {
+const Modal: FC<TModal> = ({ onClose, children}) => {
    return createPortal(
       <ModalOverlay onClose={onClose}>
          <div className={styles.modal}>

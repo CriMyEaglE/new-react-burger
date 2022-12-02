@@ -12,7 +12,6 @@ type TBurgerIngredients = {
 const BurgerIngredients: FC<TBurgerIngredients> = ({ onClick }) => {
    const dispatch = useDispatch();
    const { ingredients, ingredientsRequest } = useSelector(store => store.ingredients);
-   console.log(ingredients)
 
    const buns = useRef<HTMLParagraphElement>(null);
    const mains = useRef<HTMLParagraphElement>(null);
