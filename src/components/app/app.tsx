@@ -1,7 +1,7 @@
 import AppHeader from '../app-header/app-header';
 import appStyles from './app.module.css';
 import BurgerIngredients from '../burger-ingredients/bruger-ingredients';
-import { useState, useMemo, FC, useCallback } from 'react';
+import { useState, useMemo, FC, useCallback, useEffect } from 'react';
 import Modal from '../modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { getIngredientDetails, removeIngredientDetails } from '../../services/actions/ingredient-details';
@@ -25,6 +25,11 @@ import { ProtectedRoute } from '../../pages/protected-route/protected-route';
 import { useDispatch, useSelector } from '../../utils/hooks';
 import { TIngredient } from '../../utils/type';
 import { getCookie } from '../../utils/coockie';
+import Feed from '../../pages/feed/feed';
+import { getIngredients } from '../../services/actions/ingredients-api';
+import FeedDetails from '../../pages/feed-details/feed-details';
+import ProfileOrders from '../../pages/profile-orders/profile-orders';
+import ProfileOrdersDetails from '../../pages/profile-orders-details/profile-orders-details';
 
 type TLocation = ReturnType<typeof useLocation>;
 type TUseLocation = {
@@ -39,13 +44,15 @@ const App: FC = () => {
   const location = useLocation<TUseLocation>();
   const background = location.state && location.state.background;
   const history = useHistory();
-  const { _id } = useSelector(state => state.ingredientDetails.ingredientDetails);
   const [disabled, setDisabled] = useState(true);
   const id = useMemo(() => {
     store.length > 0 ? setDisabled(false) : setDisabled(true);
     return store.map(element => element._id)
   }, [store])
 
+  useEffect(() => {
+    dispatch(getIngredients());
+  })
   const openIngredientDetails = useCallback((element: TIngredient): void => {
     const { _id } = element;
     const url = `/ingredients/:${_id}`;
@@ -63,7 +70,10 @@ const App: FC = () => {
   const closeModal = () => {
     setOpen(false);
     dispatch(removeIngredientDetails());
-    history.replace('/');
+    history.push({
+      ...location.state.background as TLocation | TUseLocation,
+      state: { background: null },
+    });
   }
 
   const openOrderDetails = () => {
@@ -84,7 +94,7 @@ const App: FC = () => {
       <div className={appStyles.app}>
         <AppHeader />
         <Switch location={background as TLocation || location}>
-          <Route path={`/ingredients/:${_id}`}>
+          <Route path='/ingredients/:id'>
             <Ingredient />
           </Route>
           <Route path='/forgot-password' exact={true}>
@@ -99,9 +109,21 @@ const App: FC = () => {
           <ProtectedRoute path='/profile' exact={true}>
             <Profile />
           </ProtectedRoute>
+          <ProtectedRoute path='/profile/orders' exact={true}>
+            <ProfileOrders />
+          </ProtectedRoute>
+          <ProtectedRoute path='/profile/orders/:id' exact={true}>
+            <ProfileOrdersDetails />
+          </ProtectedRoute>
           <ProtectedRoute path='/reset-password' exact={true}>
             <ResetPassword />
           </ProtectedRoute>
+          <Route path='/feed' exact={true}>
+            <Feed />
+          </Route>
+          <Route path={`/feed/:id`}>
+            <FeedDetails />
+          </Route>
           <Route path='/' exact={true}>
             <main>
               <div className={styles.app_container}>
@@ -110,7 +132,7 @@ const App: FC = () => {
                   <BurgerConstructor />
                   <div className={styles.order_button_container}>
                     <Price />
-                    <Button type='primary' size='medium' onClick={openOrderDetails} htmlType={'submit'} disabled={disabled}>Оформить заказ</Button>
+                    <Button type='primary' size='medium' onClick={openOrderDetails} htmlType='submit' disabled={disabled}>Оформить заказ</Button>
                   </div>
                 </div>
               </div>
@@ -121,12 +143,27 @@ const App: FC = () => {
           </Route>
         </Switch>
         {background &&
-          <Route path={`/ingredients/:${_id}`}>
+          <Route path={`/feed/:id`}>
+            <Modal onClose={closeModal} >
+              <FeedDetails />
+            </Modal>
+          </Route>
+        }
+        {background &&
+          <Route path={`/ingredients/:id`}>
             (
             <Modal onClose={closeModal} >
               <IngredientDetails />
             </Modal>
             )</Route>}
+        {background &&
+          <Route path={`/profile/orders/:id`}>
+            (
+            <Modal onClose={closeModal} >
+              <ProfileOrdersDetails />
+            </Modal>
+            )
+          </Route>}
         {isOpen && <Modal onClose={closeModal} >
           <OrderDetails onClick={closeModal} />
         </Modal>}

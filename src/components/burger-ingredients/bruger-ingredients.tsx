@@ -31,7 +31,6 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ onClick }) => {
 
 
    useEffect(() => {
-      dispatch(getIngredients());
       const tabs = [
          buns.current,
          sauces.current,

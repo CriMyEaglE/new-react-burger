@@ -1,18 +1,30 @@
 import styles from './login.module.css';
-import { useEffect, useRef, FC, FormEventHandler } from 'react';
+import { useEffect, useRef, FC, FormEventHandler, useMemo } from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { loginUserApi } from '../../services/actions/login';
 import { getCookie } from '../../utils/coockie';
-import { useDispatch, useForm } from '../../utils/hooks';
+import { useDispatch, useForm, useSelector } from '../../utils/hooks';
+
+type TLocation = ReturnType<typeof useLocation>;
+type TUseLocation = {
+   [key: string]: string | null | TUseLocation | TLocation
+};
+
+type TLoc = {
+   from: {
+      pathname: string
+   }
+}
 
 const Login: FC = () => {
    const { values, setValues } = useForm({ email: '', password: '' });
    const inputRef = useRef(null);
    const dispatch = useDispatch();
    const history = useHistory();
-   const login: boolean = !!getCookie('access');
-   const handleLogin: FormEventHandler = (e) => {
+   const location = useLocation<TLoc>();
+   const login = useSelector(state => state.loginUser.login);
+   const handleLogin: FormEventHandler<HTMLFormElement> = (e) => {
       e.preventDefault();
       const userData = values;
       dispatch(loginUserApi(userData))
@@ -22,7 +34,11 @@ const Login: FC = () => {
       if (login) {
          history.push('/')
       }
-   }, [login, history, dispatch])
+   }, [login, history])
+
+   if (login) {
+      return <Redirect to={location?.state?.from?.pathname || '/'} />
+   }
    return (
       <div className={styles.container}>
          <form className={styles.container} onSubmit={handleLogin}>

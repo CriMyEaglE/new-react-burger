@@ -24,6 +24,7 @@ export const orderDetailsReducer = (state = orderDetailsState, action: TApplicat
       case GET_ORDER_REQUEST: {
          return {
             ...state,
+            id: '',
             orderRequest: true
          }
       }

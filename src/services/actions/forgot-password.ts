@@ -29,7 +29,6 @@ export const getRestoreSuccessApi = () => {
    return (dispatch: TDispatch) => {
       request(url, options)
          .then(({ success, message }) => {
-
             dispatch(getRestoreSuccess(success));
          })
          .catch(console.warn);

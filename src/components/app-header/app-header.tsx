@@ -11,7 +11,7 @@ const AppHeader: FC = () => {
             <NavLink to='/'>
                <div className={`${styles.constructor_link} text text_type_main-default ml-5 mr-5`}><BurgerIcon type='primary' /><span className={'ml-2'}>Конструктор</span></div>
             </NavLink>
-            <NavLink to='/'>
+            <NavLink to='/feed'>
                <div className={`text text_type_main-default text_color_inactive ml-7 mr-5`}><ListIcon type="secondary" /><span className={'ml-2'}>Лента заказов</span></div>
 
             </NavLink>

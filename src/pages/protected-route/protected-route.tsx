@@ -1,18 +1,34 @@
 import { Route, Redirect, useLocation, RouteProps } from "react-router-dom";
 import React, { FC } from 'react';
-import { getCookie } from '../../utils/coockie'
+import { useSelector } from "../../utils/hooks";
+import ResetPassword from "../reset-password/reset-password";
 
 type TProtectedRoute = RouteProps & { children?: React.ReactNode }
 
 export const ProtectedRoute: FC<TProtectedRoute> = ({ children }) => {
-   const login: boolean = !!getCookie('access');
+   const login: boolean = useSelector(state => state.loginUser.login);
+   const successRestorePassword = useSelector(state => state.restorePassword.success);
+   console.log(successRestorePassword)
    const location = useLocation();
-   return (
-      <Route>
-         {login ? (
-            children
-         ) : (<Redirect to={{ pathname: '/login', state: { from: location } }} />)
-         || (<Redirect to={{ pathname: '/profile', state: { from: location } }} />)}
-      </Route>
-   );
+
+   if (login) {
+      return (
+         <Route>
+            {children}
+         </Route>
+      )
+   } else
+      if (!login && successRestorePassword) {
+         return (
+            <Route>
+               <ResetPassword />
+            </Route>
+         )
+      } else {
+         return (
+            <Route>
+               (<Redirect to={{ pathname: '/login', state: { from: location } }} />)
+            </Route>
+         )
+      }
 };

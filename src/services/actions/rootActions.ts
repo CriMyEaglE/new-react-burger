@@ -7,6 +7,8 @@ import { TOrderActions } from "./order-details";
 import { TProfileActions } from "./profile";
 import { TRegistrationUserActions } from "./registration";
 import { TResetPasswordActions } from "./reset-password";
+import { IWsActions, TWsActions } from "./websocket-all-orders";
+import { IWsProfileActions, TWsProfileActions } from "./websocket-profile-orders";
 
 export type TApplicationActions =
    | TBurgerConstructorActions
@@ -18,3 +20,9 @@ export type TApplicationActions =
    | TProfileActions
    | TRegistrationUserActions
    | TResetPasswordActions
+   | TWsActions
+   | TWsProfileActions
+
+export type TMiddlewareActions =
+   | IWsActions
+   | IWsProfileActions
