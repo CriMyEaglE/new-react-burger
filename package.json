@@ -31,7 +31,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "/",
+  "homepage": "https://crimyeagle.github.io/new-react-burger/",
   "eslintConfig": {
     "extends": [
       "react-app",
