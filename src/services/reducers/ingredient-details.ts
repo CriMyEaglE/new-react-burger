@@ -14,7 +14,7 @@ type TInitialState = {
    } | TIngredient
 }
 
-const ingredientDetailsState = {
+export const ingredientDetailsState = {
    ingredientDetails: {}
 }
 
@@ -25,7 +25,6 @@ export const ingredtientDetailsReducer = (state = ingredientDetailsState, action
             ...state,
             ingredientDetails: action.payload
          };
-         console.log(state)
       }
       case REMOVE_INGREDIENT_DETAILS: {
          return {

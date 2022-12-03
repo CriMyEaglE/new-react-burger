@@ -12,7 +12,7 @@ type TInitialState = {
    orderFailed: boolean
 }
 
-const orderDetailsState: TInitialState = {
+export const orderDetailsState: TInitialState = {
    id: '',
    orderRequest: false,
    orderSuccess: false,
@@ -33,7 +33,7 @@ export const orderDetailsReducer = (state = orderDetailsState, action: TApplicat
             ...state,
             orderRequest: false,
             orderFailed: false,
-            orderSuccess: false,
+            orderSuccess: true,
             id: action.payload
          }
       }

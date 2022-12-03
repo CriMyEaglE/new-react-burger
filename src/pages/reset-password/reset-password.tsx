@@ -11,8 +11,6 @@ const ResetPassword: FC = () => {
    const inputRef = useRef<HTMLInputElement>(null);
    const dispatch = useDispatch();
 
-   console.log(login, 'login', reseted, 'reseted')
-
    const { values, setValues } = useForm({
       password: '',
       token: ''

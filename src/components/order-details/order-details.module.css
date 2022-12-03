@@ -3,6 +3,8 @@
    flex-direction: column;
    justify-content: center;
    text-align: center;
+   min-width: 720px;
+   min-height: 709.547px;
 }
 
 .image {

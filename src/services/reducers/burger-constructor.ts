@@ -1,7 +1,8 @@
 import {
    GET_CONSTRUCTOR_ITEM,
    DELETE_CONSTRUCTOR_ITEM,
-   GET_CONSTRUCTOR_BUN, MOVE_CONSTRUCTOR_ITEM,
+   GET_CONSTRUCTOR_BUN, 
+   MOVE_CONSTRUCTOR_ITEM,
    CLEAR_CONSTRUCTOR_LIST
 } from '../actions/burger-constructor';
 import update from 'immutability-helper';
@@ -12,7 +13,7 @@ type TIinitialState = {
    constructorList: Array<TIngredient>
 }
 
-const constructorState: TIinitialState = {
+export const constructorState: TIinitialState = {
    constructorList: []
 }
 

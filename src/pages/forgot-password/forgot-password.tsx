@@ -17,7 +17,6 @@ function ForgotPassword() {
 
   const restorePassword: FormEventHandler = useCallback((e) => {
     e.preventDefault();
-    console.log(e.target)
     dispatch(getRestoreSuccessApi());
     success ? history.push('/reset-password') : history.push('/forgot-password')
   }, [dispatch, success, history])

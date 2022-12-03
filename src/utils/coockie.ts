@@ -44,6 +44,5 @@ export const refreshToken = () => {
       })
    };
    request(url, options)
-      .then(data => console.log(data))
       .catch(console.warn)
 }

@@ -1,7 +1,8 @@
 import { clearConstructorList } from "./burger-constructor";
 import { BASE_URL } from "../../utils/constants";
-import { checkResponse } from "../../utils/api";
+import { checkResponse, request } from "../../utils/api";
 import { TApi } from "../../utils/type";
+import { getCookie } from "../../utils/coockie";
 
 export const GET_ORDER_REQUEST: 'GET_ORDER_REQUEST' = 'GET_ORDER_REQUEST';
 export const GET_ORDER_SUCCESS: 'GET_ORDER_SUCCESS' = 'GET_ORDER_SUCCESS';
@@ -32,19 +33,27 @@ export const getOrderRequest = () => ({
 })
 
 export const getOrderDetails: TApi = (id: string[]) => {
-   return (dispatch) => {
-      fetch(`${BASE_URL}/orders`, {
-         method: 'POST',
-         headers: { 'Content-Type': 'application/json' },
-         body: JSON.stringify({
-            ingredients: id
-         })
+   const url = `${BASE_URL}/orders`;
+   const options = {
+      method: 'POST',
+      headers: {
+         authorization: 'Bearer ' + getCookie('access'),
+         'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+         ingredients: id,
       })
-         .then(checkResponse)
-         .then(({ order: { number } }) => {
-            dispatch(getOrderSucces(number))
+   };
+   return (dispatch) => {
+      request(url, options)
+         .then(({ success, order: { number } }) => {
+            if (success) {
+               dispatch(getOrderSucces(number))
+            }
          })
-         .then(() => dispatch(clearConstructorList()))
+         .then(() => {
+            dispatch(clearConstructorList())
+         })
          .catch(console.warn)
    }
 }

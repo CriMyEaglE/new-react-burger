@@ -8,7 +8,6 @@ type TProtectedRoute = RouteProps & { children?: React.ReactNode }
 export const ProtectedRoute: FC<TProtectedRoute> = ({ children }) => {
    const login: boolean = useSelector(state => state.loginUser.login);
    const successRestorePassword = useSelector(state => state.restorePassword.success);
-   console.log(successRestorePassword)
    const location = useLocation();
 
    if (login) {

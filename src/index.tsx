@@ -9,7 +9,7 @@ import { store } from './utils/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLDivElement);
 root.render(
-  <Router>
+  <Router basename='/new-react-burger/'>
     <React.StrictMode>
       <Provider store={store}>
         <App />

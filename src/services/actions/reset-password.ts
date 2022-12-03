@@ -29,7 +29,6 @@ export const getResetSuccessApi: TApi = () => {
   return (dispatch: TDispatch) => {
     request(url, options)
       .then(({ success, message }) => {
-        console.log(success)
         dispatch(getResetSuccess(success));
       })
       .catch(console.warn)

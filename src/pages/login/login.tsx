@@ -1,15 +1,10 @@
 import styles from './login.module.css';
-import { useEffect, useRef, FC, FormEventHandler, useMemo } from 'react';
+import { useEffect, useRef, FC, FormEventHandler } from 'react';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import { loginUserApi } from '../../services/actions/login';
-import { getCookie } from '../../utils/coockie';
 import { useDispatch, useForm, useSelector } from '../../utils/hooks';
-
-type TLocation = ReturnType<typeof useLocation>;
-type TUseLocation = {
-   [key: string]: string | null | TUseLocation | TLocation
-};
+import { getCookie } from '../../utils/coockie';
 
 type TLoc = {
    from: {
