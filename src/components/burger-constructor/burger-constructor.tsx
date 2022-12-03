@@ -46,6 +46,7 @@ const BurgerConstructor: FC = () => {
                store.map((item) => {
                   return item.type === 'bun' &&
                      (<ConstructorElement
+                        key={item.id}
                         text={`${item.name} (верх)`}
                         thumbnail={item.image}
                         price={item.price}

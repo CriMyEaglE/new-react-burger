@@ -12,7 +12,6 @@ const ProfileOrders: FC = () => {
    const { orders: orders } = useSelector(state => state.webSocketProfileOrfers);
    const location = useLocation();
    const history = useHistory();
-   console.log(history)
    const dispatch = useDispatch();
    const logoutUser = useCallback(() => {
       dispatch(logoutUserApi());
@@ -50,7 +49,7 @@ const ProfileOrders: FC = () => {
                изменять свои персональные данные</p>
          </nav>
          <div className={styles.orders_container}>
-            {orders.map(order => { return <OrderCard order={order} key={v4()} /> })}
+            {orders.map(order => { return <OrderCard order={order} key={order.number} /> })}
          </div>
       </div>
    )

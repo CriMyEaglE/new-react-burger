@@ -6,7 +6,7 @@ describe('service is available', () => {
    });
 
    it('should be available localhost:3000', () => {
-      cy.visit('http://localhost:3000')
+      cy.visit('/')
    });
 
    it('should open ingredient details', () => {
@@ -15,11 +15,7 @@ describe('service is available', () => {
 
    it('should close ingredient details by button', () => {
       cy.get('[class^=modal_close_icon]').wait(500).click();
-      cy.visit('http://localhost:3000');
-   });
-
-   it('should scroll', () => {
-      cy.wait(500).get('[class^=bruger-ingredients_scroll').scrollTo(0, 1000).wait(500)
+      cy.visit('/');
    });
 
    it('should tab', () => {
@@ -28,6 +24,10 @@ describe('service is available', () => {
          cy.get('[class^=tab').eq(i).wait(500).click();
       }
    })
+
+   it('should scroll', () => {
+      cy.wait(500).get('[class^=bruger-ingredients_scroll').scrollTo(0, 1000).wait(500)
+   });
 
    it('should dragndrop ingredients', () => {
       for (let i = 0; i <= 1; i++) {

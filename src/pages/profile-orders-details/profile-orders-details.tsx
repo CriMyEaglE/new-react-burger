@@ -17,8 +17,6 @@ export const ProfileOrdersDetails: FC = () => {
    const { orders: orders } = useSelector(state => state.webSocketProfileOrfers);
    const { ingredients }: IIngredients = useSelector(state => state.ingredients);
    const params = useParams();
-   console.log(params)
-   console.log(login)
    const orderNumber = Number(location.pathname.split(':')[1]);
    const order = orders.find(item => item.number === orderNumber);
    let price = 0;

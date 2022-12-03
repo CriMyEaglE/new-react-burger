@@ -10,13 +10,12 @@ type TBurgerIngredients = {
 }
 
 const BurgerIngredients: FC<TBurgerIngredients> = ({ onClick }) => {
-   const dispatch = useDispatch();
    const { ingredients, ingredientsRequest } = useSelector(store => store.ingredients);
 
    const buns = useRef<HTMLParagraphElement>(null);
    const mains = useRef<HTMLParagraphElement>(null);
    const sauces = useRef<HTMLParagraphElement>(null);
-   const scroll = useRef<HTMLDivElement>(null)
+   const scroll = useRef<HTMLDivElement>(null);
    const [current, setCurrent] = useState('one');
 
    const scrollTo = useCallback((value: string) => {
@@ -30,18 +29,18 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ onClick }) => {
 
 
    useEffect(() => {
-      const tabs = [
+      const targets = [
          buns.current,
          sauces.current,
          mains.current
       ]
       const options = {
          root: scroll.current,
-         rootMargin: '0px 0px -95% 0px'
+         rootMargin: '0px 0px -90% 0px'
       }
 
       const callback = (entries: IntersectionObserverEntry[]) => {
-         entries.forEach((entry: IntersectionObserverEntry) => {
+         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                if (entry.target === buns.current) {
                   setCurrent('one')
@@ -57,11 +56,11 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ onClick }) => {
 
       }
       const observer = new IntersectionObserver(callback, options);
-      tabs.forEach((tab) => {
-         if (tab)
-            observer.observe(tab);
+      targets.forEach((target) => {
+         if (target)
+            observer.observe(target);
       });
-   }, [dispatch]);
+   }, [])
 
    return (
       <div>
@@ -85,7 +84,7 @@ const BurgerIngredients: FC<TBurgerIngredients> = ({ onClick }) => {
             </div>
          </div>
 
-         <div className={styles.scroll}>
+         <div className={styles.scroll} ref={scroll}>
             <h2 className={'mt-8'} ref={buns}>Булки</h2>
             <div className={`${styles.bun} section`} id='one'>
                <Ingredients onClick={onClick} type={'bun'} ingredients={ingredients} ingredientsRequest={ingredientsRequest} />

@@ -119,3 +119,5 @@ export const orders = {
 }
 
 export const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzODMyNTk2OWI1MThhMDAxYmI4ODFlZSIsImlhdCI6MTY2OTkwOTUwMSwiZXhwIjoxNjY5OTEwNzAxfQ.ObPWdfN8TiU0axGW46sLvJsT3ZpSFNNHtKgKlUg40u8'
+
+export const baseUrl = 'http://localhost:3000'

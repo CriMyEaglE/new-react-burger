@@ -14,7 +14,6 @@ type TLoc = {
 
 const Login: FC = () => {
    const { values, setValues } = useForm({ email: '', password: '' });
-   console.log(getCookie('access'))
    const inputRef = useRef(null);
    const dispatch = useDispatch();
    const history = useHistory();
